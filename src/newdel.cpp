@@ -5,13 +5,20 @@
 */
 
 extern void* heap_top;
+int c=0;
+static int blocksize=1000;
 
 void* operator new  (unsigned int count){
-	// return the whole heap.  i am not a smart man, but i know that my program only has 1 "new"
-	return heap_top;
+	unsigned int t = (unsigned int) heap_top;
+	unsigned int block = t+(c*blocksize);
+	c=c+1;
+	return (void*) block;
 }
 
 void operator delete (void* ptr){
 
 }
 
+extern "C" int atexit(void (*function)(void)){
+
+}

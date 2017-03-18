@@ -7,6 +7,7 @@ private:
 	 int x;
 public: 
 	Obj1(int x);
+	~Obj1();
 	int getX() ;
 };
 

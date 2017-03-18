@@ -13,7 +13,7 @@ OBJDUMP=$(TOOLCHAIN)/arm-none-elf/bin/arm-none-elf-objdump
 QEMU=qemu-system-arm 	
 
 #flags
-CXX_FLAGS=-v --target=arm-none-elf -S -fno-rtti -fno-exceptions
+CXX_FLAGS=-v --target=arm-none-elf -S -fno-rtti -fno-exceptions  -fno-use-cxa-atexit
 
 asm/main.s: src/main.cpp
 	$(CXX) $(CXX_FLAGS) src/main.cpp -o asm/main.s
