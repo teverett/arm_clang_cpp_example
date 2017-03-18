@@ -22,6 +22,25 @@ SECTIONS
 	*(.bss COMMON) 
 	}
 
+/* Include the list of initialization functions sorted. */
+.init_array :
+{
+    PROVIDE(_init_array_start = .);
+    *(.init_array)
+    KEEP (*(SORT( .init_array.*)))
+    KEEP (*(.init_array))
+    PROVIDE(_init_array_end = .);
+}
+
+/* Include the list of termination functions sorted. */
+.fini_array :
+{
+    PROVIDE(_fini_array_start = .);
+    KEEP (*(SORT( .fini_array.*)))
+    KEEP (*( .fini_array))
+    PROVIDE(_fini_array_end = .);
+}
+
 . = ALIGN(8);
 
 . = . + 0x1000; /* 4kB of stack memory */

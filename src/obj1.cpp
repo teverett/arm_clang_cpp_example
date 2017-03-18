@@ -3,12 +3,17 @@
 #include "serial.hpp"
 
 Obj1::Obj1(int x) {
-	print_uart0("ctor\n");
+	print_uart0_str("ctor\n");
 	this->x = x;
 }
 
+Obj1::Obj1() {
+	print_uart0_str("ctor\n");
+	x = 77;
+}
+
 Obj1::~Obj1(){
-	print_uart0("dtor\n");
+	print_uart0_str("dtor\n");
 }
 
 int Obj1::getX() {
