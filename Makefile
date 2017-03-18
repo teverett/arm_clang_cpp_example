@@ -28,7 +28,7 @@ obj/obj1.o: asm/obj1.s
 obj/startup.o: src/startup.s
 	$(AS) -o obj/startup.o src/startup.s
 
-main.elf: dirs obj/main.o obj/obj1.o obj/startup.o
+main.elf: dirs obj/main.o obj/obj1.o obj/startup.o dump
 	$(LD) obj/main.o obj/obj1.o obj/startup.o -o main.elf -T src/clang_cpp_example.ld
 
 dump: dirs obj/main.o obj/obj1.o obj/startup.o
