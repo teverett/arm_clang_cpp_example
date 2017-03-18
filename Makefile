@@ -39,6 +39,12 @@ asm/serial.s: src/serial.cpp
 obj/serial.o: asm/serial.s
 	$(AS) -o obj/serial.o asm/serial.s
 
+asm/str.s: src/str.cpp
+	$(CXX) $(CXX_FLAGS) src/str.cpp -o asm/str.s
+
+obj/str.o: asm/str.s
+	$(AS) -o obj/str.o asm/str.s
+
 obj/startup.o: src/startup.s
 	$(AS) -o obj/startup.o src/startup.s
 
@@ -48,8 +54,8 @@ run: main.bin
 main.bin: main.elf
 	$(OBJCOPY) -O binary main.elf main.bin
 
-main.elf: dirs obj/main.o obj/obj1.o obj/startup.o obj/newdel.o obj/serial.o dump
-	$(LD) obj/main.o obj/obj1.o obj/startup.o obj/newdel.o obj/serial.o -o main.elf -T src/clang_cpp_example.ld
+main.elf: dirs obj/main.o obj/obj1.o obj/startup.o obj/newdel.o obj/serial.o obj/str.o dump
+	$(LD) obj/main.o obj/obj1.o obj/startup.o obj/newdel.o obj/serial.o obj/str.o -o main.elf -T src/clang_cpp_example.ld
 	$(OBJDUMP) -h main.elf
 
 dump: dirs obj/main.o obj/obj1.o obj/startup.o
@@ -57,6 +63,7 @@ dump: dirs obj/main.o obj/obj1.o obj/startup.o
 	$(OBJDUMP) -h obj/obj1.o
 	$(OBJDUMP) -h obj/newdel.o
 	$(OBJDUMP) -h obj/serial.o
+	$(OBJDUMP) -h obj/str.o
 	$(OBJDUMP) -h obj/startup.o
 
 dirs:
