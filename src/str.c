@@ -1,14 +1,14 @@
 
-#include "str.hpp"
+#include "str.h"
 
-extern "C"  int strlen(const char* s)
+int strlen(const char* s)
 {
     int result = 0;
     while (*s++) ++result;
     return result;
 }
 
- extern "C" void reverse(char s[])
+void reverse(char s[])
  {
      int i, j;
      char c;
@@ -20,7 +20,7 @@ extern "C"  int strlen(const char* s)
      }
  }
 
- extern "C" void itoa(int n, char s[])
+void itoa(int n, char s[])
  {
     int i, sign;
  

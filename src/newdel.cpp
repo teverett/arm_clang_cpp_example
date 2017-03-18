@@ -21,7 +21,4 @@ void operator delete (void* ptr){
 
 }
 
-extern "C" int atexit(void (*function)(void)){
-
-}
 

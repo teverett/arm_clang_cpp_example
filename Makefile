@@ -22,6 +22,7 @@ CPP=$(TOOLS_DIR)/bin/clang++
 AS=$(TOOLS_DIR)/$(TARGET)/$(TARGET)/bin/as
 LD=$(TOOLS_DIR)/$(TARGET)/$(TARGET)/bin/ld
 OBJCOPY=$(TOOLS_DIR)/$(TARGET)/$(TARGET)/bin/objcopy
+OBJDUMP=$(TOOLS_DIR)/$(TARGET)/$(TARGET)/bin/objdump
 QEMU=qemu-system-arm 
 
 # sources
@@ -74,12 +75,16 @@ $(OBJ_DIR)/%.o: %.cpp
 run: kernel.bin
 	$(QEMU) -M versatilepb -m 128M -nographic -kernel kernel.bin
 
-kernel.bin: $(OBJ_DIR)/kernel.elf
+kernel.bin: $(OBJ_DIR)/kernel.elf dump
 	$(OBJCOPY) -O binary $(OBJ_DIR)/kernel.elf kernel.bin
 
 # elf kernel
 $(OBJ_DIR)/kernel.elf: dirs $(OBJS)
 	$(LD) $(OBJS) -o $(OBJ_DIR)/kernel.elf -T $(SRC_ROOT)/kernel.ld
+
+dump: $(OBJ_DIR)/kernel.elf
+	$(OBJDUMP) -h $(OBJS)
+	$(OBJDUMP) -h $(OBJ_DIR)/kernel.elf
 
 dirs:
 	mkdir -p $(ASM)

@@ -41,11 +41,12 @@ SECTIONS
     PROVIDE(_fini_array_end = .);
 }
 
+/* stack */
 . = ALIGN(8);
-
 . = . + 0x1000; /* 4kB of stack memory */
 stack_top = .;
 
+/* cheesy way to make a heap */
 . = . + 0x100000; /* 4kB of heap memory */
 heap_top = .;
 }

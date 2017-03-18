@@ -1,6 +1,9 @@
 
 #include "obj1.hpp"
-#include "serial.hpp"
+
+extern "C" {
+	#include "serial.h"
+}
 
 Obj1::Obj1(int x) {
 	print_uart0_str("ctor\n");
