@@ -1,75 +1,90 @@
 
 
-all	: main.bin
+all	: kernel.bin
 
-TOOLCHAIN=~tom/projects/build_clang_crosscompiler/binary
+TARGET=arm-none-eabi
+
+TOOLS_DIR=~tom/projects/build_clang_crosscompiler/binary
+
+# dirs
+SRC_ROOT=src
+ASM=asm
+OBJ_DIR=obj
+
+#args
+ASARGS=
+CCARGS=-target $(TARGET)
+CCPARGS=-target $(TARGET) -v -S -fno-rtti -fno-exceptions  -fno-use-cxa-atexit
 
 #tools
-CXX=$(TOOLCHAIN)/bin/clang++
-LD=$(TOOLCHAIN)/arm-none-elf/bin/arm-none-elf-ld
-AS=$(TOOLCHAIN)/arm-none-elf/bin/arm-none-elf-as
-OBJCOPY=$(TOOLCHAIN)/arm-none-elf/bin/arm-none-elf-objcopy
-OBJDUMP=$(TOOLCHAIN)/arm-none-elf/bin/arm-none-elf-objdump
-QEMU=qemu-system-arm 	
+CC=$(TOOLS_DIR)/bin/clang
+CPP=$(TOOLS_DIR)/bin/clang++
+AS=$(TOOLS_DIR)/$(TARGET)/$(TARGET)/bin/as
+LD=$(TOOLS_DIR)/$(TARGET)/$(TARGET)/bin/ld
+OBJCOPY=$(TOOLS_DIR)/$(TARGET)/$(TARGET)/bin/objcopy
+QEMU=qemu-system-arm 
 
-#flags
-CXX_FLAGS=-v --target=arm-none-elf -S -fno-rtti -fno-exceptions  -fno-use-cxa-atexit
+# sources
+SRCS_ASM=$(shell find $(SRC_ROOT) -type f -iname '*.s')
+SRCS_OBJC=$(shell find $(SRC_ROOT) -type f -iname '*.m')
+SRCS_C=$(shell find $(SRC_ROOT) -type f -iname '*.c')
+SRCS_CPP=$(shell find $(SRC_ROOT) -type f -iname '*.cpp')
 
-asm/main.s: src/main.cpp
-	$(CXX) $(CXX_FLAGS) src/main.cpp -o asm/main.s
+# all sources
+SRCS=$(SRCS_ASM)$(SRCS_OBJC)$(SRCS_C)$(SRCS_CPP)
 
-obj/main.o: asm/main.s
-	$(AS) -o obj/main.o asm/main.s
+# obj dirs
+OBJS_ASM=$(subst $(SRC_ROOT)/, , $(SRCS_ASM:.s=.o))
+OBJS_OBJC=$(subst $(SRC_ROOT)/, , $(SRCS_OBJC:.m=.o))
+OBJS_C=$(subst $(SRC_ROOT)/, , $(SRCS_C:.c=.o))
+OBJS_CPP=$(subst $(SRC_ROOT)/, , $(SRCS_CPP:.cpp=.o))
 
-asm/obj1.s: src/obj1.cpp
-	$(CXX) $(CXX_FLAGS) src/obj1.cpp -o asm/obj1.s
+# object files
+OBJS=$(addprefix $(OBJ_DIR)/, $(OBJS_ASM) $(OBJS_OBJC) $(OBJS_C) $(OBJS_CPP))
 
-obj/obj1.o: asm/obj1.s
-	$(AS) -o obj/obj1.o asm/obj1.s
+# set search paths
+vpath %.m $(SRC_ROOT)/
+vpath %.s $(SRC_ROOT)/
+vpath %.c $(SRC_ROOT)/
+vpath %.cpp $(SRC_ROOT)/
 
-asm/newdel.s: src/newdel.cpp
-	$(CXX) $(CXX_FLAGS) src/newdel.cpp -o asm/newdel.s
+# objc files	
+$(OBJ_DIR)/%.o: %.m
+	mkdir -p $(@D)
+	$(CPP) $(CCPARGS) -S -c -o $(ASM)/$(notdir $<).asm $<
+	$(AS) $(ASARGS) -o $@ $(ASM)/$(notdir $<).asm 
 
-obj/newdel.o: asm/newdel.s
-	$(AS) -o obj/newdel.o asm/newdel.s
+# s files
+$(OBJ_DIR)/%.o: %.s
+	mkdir -p $(@D)
+	$(AS) $(ASARGS) -o $@ $< 
 
-asm/serial.s: src/serial.cpp
-	$(CXX) $(CXX_FLAGS) src/serial.cpp -o asm/serial.s
+# c files
+$(OBJ_DIR)/%.o: %.c
+	mkdir -p $(@D)
+	$(CC) $(CCARGS) -S -c -o $(ASM)/$(notdir $<).asm $<
+	$(AS) $(ASARGS) -o $@ $(ASM)/$(notdir $<).asm 
 
-obj/serial.o: asm/serial.s
-	$(AS) -o obj/serial.o asm/serial.s
+# cpp files
+$(OBJ_DIR)/%.o: %.cpp
+	mkdir -p $(@D)
+	$(CPP) $(CCPARGS) -S -c -o $(ASM)/$(notdir $<).asm $<
+	$(AS) $(ASARGS) -o $@ $(ASM)/$(notdir $<).asm 
 
-asm/str.s: src/str.cpp
-	$(CXX) $(CXX_FLAGS) src/str.cpp -o asm/str.s
+run: kernel.bin
+	$(QEMU) -M versatilepb -m 128M -nographic -kernel kernel.bin
 
-obj/str.o: asm/str.s
-	$(AS) -o obj/str.o asm/str.s
+kernel.bin: $(OBJ_DIR)/kernel.elf
+	$(OBJCOPY) -O binary $(OBJ_DIR)/kernel.elf kernel.bin
 
-obj/startup.o: src/startup.s
-	$(AS) -o obj/startup.o src/startup.s
-
-run: main.bin
-	$(QEMU) -M versatilepb -m 128M -nographic -kernel main.bin
-
-main.bin: main.elf
-	$(OBJCOPY) -O binary main.elf main.bin
-
-main.elf: dirs obj/main.o obj/obj1.o obj/startup.o obj/newdel.o obj/serial.o obj/str.o dump
-	$(LD) obj/main.o obj/obj1.o obj/startup.o obj/newdel.o obj/serial.o obj/str.o -o main.elf -T src/clang_cpp_example.ld
-	$(OBJDUMP) -h main.elf
-
-dump: dirs obj/main.o obj/obj1.o obj/startup.o
-	$(OBJDUMP) -h obj/main.o
-	$(OBJDUMP) -h obj/obj1.o
-	$(OBJDUMP) -h obj/newdel.o
-	$(OBJDUMP) -h obj/serial.o
-	$(OBJDUMP) -h obj/str.o
-	$(OBJDUMP) -h obj/startup.o
+# elf kernel
+$(OBJ_DIR)/kernel.elf: dirs $(OBJS)
+	$(LD) $(OBJS) -o $(OBJ_DIR)/kernel.elf -T $(SRC_ROOT)/kernel.ld
 
 dirs:
-	mkdir -p asm
-	mkdir -p obj
+	mkdir -p $(ASM)
 
 clean:
-	rm -rf asm
-	rm -rf obj
+	rm -rf $(ASM)
+	rm -rf $(OBJ_DIR)
+	rm -f *.bin
