@@ -18,7 +18,7 @@ Kernel::~Kernel(){
 int Kernel::run(){
 	print_uart0_str("Kernel::run\n");
 	test_heap_object();
-	//	test_automatic_object();
+	test_automatic_object();
 	return 0;
 }
 
@@ -31,21 +31,21 @@ void Kernel::test_heap_object() {
 }
 
 
-//static Obj1* staticObj1 = new Obj1(12);
+//static Obj1 staticObj1(12);
 
 void Kernel::test_automatic_object() {
-//	int xx = staticObj1->getX();
+//	int xx = staticObj1.getX();
 //	print_uart0_int(xx);
 //	print_uart0_str("\n");
 }
+
+static Kernel kernel;
 
 /*
 * this is the entry point called by crt.c
 */
 extern "C" int main() {
 	print_uart0_str("Hello from Clang\n");
-	Kernel* kernel = new Kernel();
-	int ret =  kernel->run();
-	delete kernel;
+	int ret =  kernel.run();
 	return ret;
 }

@@ -16,7 +16,7 @@ Obj1::Obj1() {
 }
 
 Obj1::~Obj1(){
-	print_uart0_str("Obj 1 dtor\n");
+	print_uart0_str("Obj1 dtor\n");
 }
 
 int Obj1::getX() {

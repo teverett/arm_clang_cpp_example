@@ -48,5 +48,5 @@ stack_top = .;
 
 /* cheesy way to make a heap */
 . = . + 0x100000; /* 4kB of heap memory */
-heap_top = .;
+__heap_top = .;
 }
