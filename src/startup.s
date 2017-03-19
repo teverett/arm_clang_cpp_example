@@ -1,6 +1,6 @@
 .global _Reset
 _Reset:
- LDR sp, =stack_top
+ LDR sp, =__stack_top
  BL c_entry
  B .
  

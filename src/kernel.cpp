@@ -4,10 +4,12 @@
 
 extern "C" {
 	#include "serial.h"
+	#include "image.h"
 }
 
 Kernel::Kernel(){
 	print_uart0_str("Kernel::ctor\n");
+	report_image();
 }
 
 Kernel::~Kernel(){
@@ -36,6 +38,16 @@ void Kernel::test_automatic_object() {
 //	int xx = staticObj1.getX();
 //	print_uart0_int(xx);
 //	print_uart0_str("\n");
+}
+
+void Kernel::report_image(){
+	print_uart0_str("__heap_top: ");
+	print_uart0_int(__heap_top);
+	print_uart0_str("\n");
+
+	print_uart0_str("__stack_top: ");
+	print_uart0_int(__stack_top);
+	print_uart0_str("\n");
 }
 
 /*

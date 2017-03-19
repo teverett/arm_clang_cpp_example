@@ -1,7 +1,7 @@
 
 
 extern "C" {
-#include "sections.h"
+#include "image.h"
 #include "serial.h"
 }
 

@@ -6,6 +6,7 @@ class Kernel {
 private:
 	void test_heap_object();
 	void test_automatic_object();
+	void report_image();
 public: 
 	Kernel();
 	~Kernel();
