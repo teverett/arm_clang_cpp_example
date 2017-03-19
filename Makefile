@@ -14,7 +14,7 @@ OBJ_DIR=obj
 #args
 ASARGS=
 CCARGS=-target $(TARGET)
-CCPARGS=-target $(TARGET) -v -S -fno-rtti -fno-exceptions  -fno-use-cxa-atexit -ffreestanding -fno-builtin -nostdlib -nostdinc -nostdinc++
+CCPARGS=-target $(TARGET) -v -S -fno-rtti -fno-exceptions  -fno-exceptions -fno-use-cxa-atexit -ffreestanding -fno-builtin -nostdlib -nostdinc -nostdinc++
 
 #tools
 CC=$(TOOLS_DIR)/bin/clang
@@ -54,23 +54,27 @@ $(OBJ_DIR)/%.o: %.m
 	mkdir -p $(@D)
 	$(CPP) $(CCPARGS) -S -c -o $(ASM)/$(notdir $<).asm $<
 	$(AS) $(ASARGS) -o $@ $(ASM)/$(notdir $<).asm 
+	$(OBJDUMP) -h $@ > $@.sections
 
 # s files
 $(OBJ_DIR)/%.o: %.s
 	mkdir -p $(@D)
 	$(AS) $(ASARGS) -o $@ $< 
+	$(OBJDUMP) -h $@ > $@.sections
 
 # c files
 $(OBJ_DIR)/%.o: %.c
 	mkdir -p $(@D)
 	$(CC) $(CCARGS) -S -c -o $(ASM)/$(notdir $<).asm $<
 	$(AS) $(ASARGS) -o $@ $(ASM)/$(notdir $<).asm 
+	$(OBJDUMP) -h $@ > $@.sections
 
 # cpp files
 $(OBJ_DIR)/%.o: %.cpp
 	mkdir -p $(@D)
 	$(CPP) $(CCPARGS) -S -c -o $(ASM)/$(notdir $<).asm $<
 	$(AS) $(ASARGS) -o $@ $(ASM)/$(notdir $<).asm 
+	$(OBJDUMP) -h $@ > $@.sections
 
 run: kernel.bin
 	$(QEMU) -M versatilepb -m 128M -nographic -kernel kernel.bin
@@ -83,8 +87,7 @@ $(OBJ_DIR)/kernel.elf: dirs $(OBJS)
 	$(LD) $(OBJS) -o $(OBJ_DIR)/kernel.elf -T $(SRC_ROOT)/kernel.ld
 
 dump: $(OBJ_DIR)/kernel.elf
-	$(OBJDUMP) -h $(OBJS)
-	$(OBJDUMP) -h $(OBJ_DIR)/kernel.elf
+	$(OBJDUMP) -h $(OBJ_DIR)/kernel.elf > kernel.sections
 	$(OBJDUMP) -S -C $(OBJ_DIR)/kernel.elf > kernel.disassembly
 
 dirs:
@@ -94,3 +97,5 @@ clean:
 	rm -rf $(ASM)
 	rm -rf $(OBJ_DIR)
 	rm -f *.bin
+	rm -f *.sections
+	

@@ -4,3 +4,4 @@
 /main.bin
 /kernel.bin
 /kernel.disassembly
+/kernel.sections

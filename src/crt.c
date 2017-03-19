@@ -1,5 +1,6 @@
 
 #include "crt.h"
+#include "serial.h"
 
 extern int main();
 
@@ -13,10 +14,12 @@ int c_entry() {
 	main();
 	print_uart0_str("crt.c _fini\n");
 	_fini();
+	return 0;
 }
 
 int atexit(void (*function)(void)){
 	print_uart0_str("atexit \n");
+	return 0;
 }
 
 typedef void (*func_ptr)(void);
