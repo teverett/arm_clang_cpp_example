@@ -6,17 +6,17 @@ extern "C" {
 }
 
 Obj1::Obj1(int x) {
-	print_uart0_str("ctor\n");
+	print_uart0_str("Obj1 int ctor\n");
 	this->x = x;
 }
 
 Obj1::Obj1() {
-	print_uart0_str("ctor\n");
+	print_uart0_str("Obj1 default ctor\n");
 	x = 77;
 }
 
 Obj1::~Obj1(){
-	print_uart0_str("dtor\n");
+	print_uart0_str("Obj 1 dtor\n");
 }
 
 int Obj1::getX() {
