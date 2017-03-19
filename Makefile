@@ -85,6 +85,7 @@ $(OBJ_DIR)/kernel.elf: dirs $(OBJS)
 dump: $(OBJ_DIR)/kernel.elf
 	$(OBJDUMP) -h $(OBJS)
 	$(OBJDUMP) -h $(OBJ_DIR)/kernel.elf
+	$(OBJDUMP) -S -C $(OBJ_DIR)/kernel.elf > kernel.disassembly
 
 dirs:
 	mkdir -p $(ASM)
