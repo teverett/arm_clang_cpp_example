@@ -98,4 +98,4 @@ clean:
 	rm -rf $(OBJ_DIR)
 	rm -f *.bin
 	rm -f *.sections
-	
+

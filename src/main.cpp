@@ -4,7 +4,7 @@
 
 extern "C" {
 	#include "serial.h"
-	#include "crt.h"
+//	#include "crt.h"
 }
 
 //static Obj1* staticObj1 = new Obj1(12);

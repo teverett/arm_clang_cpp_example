@@ -4,6 +4,7 @@
 * custom new and delete operators needed by C++
 */
 
+
 extern void* heap_top;
 int c=0;
 static int blocksize=1000;
