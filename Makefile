@@ -2,7 +2,7 @@
 
 all	: kernel.bin
 
-TARGET=arm-none-eabi
+TARGET=arm-none-elf
 
 TOOLS_DIR=~tom/projects/build_clang_crosscompiler/binary
 
@@ -13,8 +13,8 @@ OBJ_DIR=obj
 
 #args
 ASARGS=
-CCARGS=-target $(TARGET)
-CCPARGS=-target $(TARGET) -v -S -fno-rtti -fno-exceptions  -fno-exceptions -fno-use-cxa-atexit -ffreestanding -fno-builtin -nostdlib -nostdinc -nostdinc++
+CCARGS=-target $(TARGET) -mfloat-abi=soft
+CCPARGS=-target $(TARGET) -v -S -fno-rtti -fno-exceptions  -fno-exceptions -fno-use-cxa-atexit -ffreestanding -fno-builtin -nostdlib -nostdinc -nostdinc++ -mfloat-abi=soft
 
 #tools
 CC=$(TOOLS_DIR)/bin/clang
@@ -89,6 +89,7 @@ $(OBJ_DIR)/kernel.elf: dirs $(OBJS)
 dump: $(OBJ_DIR)/kernel.elf
 	$(OBJDUMP) -h $(OBJ_DIR)/kernel.elf > kernel.sections
 	$(OBJDUMP) -S -C $(OBJ_DIR)/kernel.elf > kernel.disassembly
+	$(OBJDUMP) -t -C $(OBJ_DIR)/kernel.elf > kernel.symbols
 
 dirs:
 	mkdir -p $(ASM)
@@ -98,4 +99,5 @@ clean:
 	rm -rf $(OBJ_DIR)
 	rm -f *.bin
 	rm -f *.sections
-
+	rm -f *.disassembly
+	rm -f *.symbols

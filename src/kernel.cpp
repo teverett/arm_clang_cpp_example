@@ -4,7 +4,6 @@
 
 extern "C" {
 	#include "serial.h"
-//	#include "crt.h"
 }
 
 Kernel::Kernel(){
@@ -18,7 +17,7 @@ Kernel::~Kernel(){
 int Kernel::run(){
 	print_uart0_str("Kernel::run\n");
 	test_heap_object();
-	test_automatic_object();
+//	test_automatic_object();
 	return 0;
 }
 
@@ -39,13 +38,14 @@ void Kernel::test_automatic_object() {
 //	print_uart0_str("\n");
 }
 
-static Kernel kernel;
-
 /*
-* this is the entry point called by crt.c
+* this is the entry point called by crti.c
 */
 extern "C" int main() {
 	print_uart0_str("Hello from Clang\n");
-	int ret =  kernel.run();
+	Kernel* kernel = new Kernel();
+	int ret =  kernel->run();
+	// does nothing!
+	delete kernel;
 	return ret;
 }
