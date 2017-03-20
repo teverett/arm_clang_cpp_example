@@ -4,7 +4,7 @@ all	: kernel.bin
 
 TARGET=arm-none-elf
 
-TOOLS_DIR=~tom/projects/build_clang_crosscompiler/binary
+TOOLS_DIR=toolchain/binary
 
 # dirs
 SRC_ROOT=src
