@@ -26,18 +26,18 @@ int Kernel::run(){
 void Kernel::test_heap_object() {
 	Obj1* obj1 = new Obj1(77);
 	int xx = obj1->getX();
-//	print_uart0_int(xx);
-//	print_uart0_str("\n");
+	print_uart0_int(xx);
+	print_uart0_str("\n");
 	delete obj1;
 }
 
 
-//static Obj1 staticObj1(12);
+static Obj1 staticObj1(12);
 
 void Kernel::test_automatic_object() {
-//	int xx = staticObj1.getX();
-//	print_uart0_int(xx);
-//	print_uart0_str("\n");
+	int xx = staticObj1.getX();
+	print_uart0_int(xx);
+	print_uart0_str("\n");
 }
 
 void Kernel::report_image(){
