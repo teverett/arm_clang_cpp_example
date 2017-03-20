@@ -14,7 +14,7 @@ OBJ_DIR=obj
 #args
 ASARGS=
 CCARGS=-target $(TARGET) -mfloat-abi=soft
-CCPARGS=-target $(TARGET) -S -fno-rtti -fno-exceptions  -fno-exceptions -fno-use-cxa-atexit -ffreestanding -fno-builtin -nostdlib -nostdinc -nostdinc++ -mfloat-abi=soft
+CCPARGS=-target $(TARGET) -S -fno-rtti -fno-exceptions  -fno-exceptions -fno-use-cxa-atexit -ffreestanding -fno-builtin -nostdlib -nostdinc -nostdinc++ -mfloat-abi=soft -std=c++11
 
 #tools
 CC=$(TOOLS_DIR)/bin/clang
