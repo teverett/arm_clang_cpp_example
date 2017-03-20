@@ -67,8 +67,16 @@ void Kernel::report_image() {
 	print_uart0_int((unsigned long) &__stack_top);
 	print_uart0_str("\n");
 
-	print_uart0_str("__heap_top: ");
-	print_uart0_int((unsigned long) &__heap_top);
+	print_uart0_str("__stack_size: ");
+	print_uart0_int((unsigned long) &__stack_size);
+	print_uart0_str("\n");
+
+	print_uart0_str("__heap_bottom: ");
+	print_uart0_int((unsigned long) &__heap_bottom);
+	print_uart0_str("\n");
+
+	print_uart0_str("__heap_size: ");
+	print_uart0_int((unsigned long) &__heap_size);
 	print_uart0_str("\n");
 }
 

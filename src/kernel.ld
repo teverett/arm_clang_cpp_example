@@ -1,10 +1,12 @@
 
-qemu_load_address = 0x10000;
+__qemu_load_address = 0x10000;
+__stack_size = 0x1000;  /* 4k */
+__heap_size = 0x10000;  /* 64k */
 
 ENTRY(_reset)
 SECTIONS
 {
- . = qemu_load_address;
+ . = __qemu_load_address;
 .startup : 
 	{ 
 	__startup_begin = .;
@@ -54,10 +56,12 @@ SECTIONS
 
 /* stack */
 . = ALIGN(8);
-. = . + 0x1000; /* 4kB of stack memory */
+__stack_bottom = .;
+. = . + __stack_size;
 __stack_top = .;
 
 /* cheesy way to make a heap */
-. = . + 0x100000; /* 4kB of heap memory */
+__heap_bottom = .;
+. = . + __heap_size;
 __heap_top = .;
 }

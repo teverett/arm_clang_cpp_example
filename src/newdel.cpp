@@ -14,7 +14,7 @@ int c = 0;
 static int blocksize = 100;
 
 void* operator new(unsigned int count) {
-	unsigned int t = (unsigned int) &__heap_top;
+	unsigned int t = (unsigned int) &__heap_bottom;
 	unsigned int* block = (unsigned int*) (t + (c * blocksize));
 	c = c + 1;
 
