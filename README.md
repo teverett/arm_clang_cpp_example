@@ -34,20 +34,20 @@ Kernel::ctor
 Kernel::run
 __startup_begin: 65536
 __text_begin: 65552
-__data_begin: 68560
-__bss_begin: 68564
-__init_array_begin: 69596
-__fini_array_begin: 69600
+__data_begin: 68556
+__bss_begin: 68560
+__init_array_begin: 69592
+__fini_array_begin: 69596
 __stack_top: 73696
 __heap_top: 1122272
 new: 1122372 size: 4
 Obj1 int ctor with value: 77
 77
-Obj1 int dtor with value: 77
+Obj1 dtor with value: 77
 delete: 1122372
 Kernel::dtor
 delete: 1122272
-Obj1 int dtor with value: 12
+Obj1 dtor with value: 12
 crt.c _fini
 QEMU: Terminated
 </pre>
