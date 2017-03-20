@@ -1,4 +1,3 @@
-
 #ifndef __KERNEL_HPP
 #define __KERNEL_HPP
 
@@ -7,7 +6,7 @@ private:
 	void test_heap_object();
 	void test_automatic_object();
 	void report_image();
-public: 
+public:
 	Kernel();
 	~Kernel();
 	int run();

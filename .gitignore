@@ -6,3 +6,6 @@
 /kernel.disassembly
 /kernel.sections
 /kernel.symbols
+/src/.settings
+/src/.project
+/src/.cproject
