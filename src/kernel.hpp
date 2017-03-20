@@ -7,6 +7,7 @@ private:
 	void test_automatic_object();
 	void report_image();
 	void showbss();
+	void test_array_new_del();
 public:
 	Kernel();
 	~Kernel();

@@ -20,7 +20,13 @@ int Kernel::run() {
 //	showbss();
 	test_heap_object();
 	test_automatic_object();
+	test_array_new_del();
 	return 0;
+}
+
+void Kernel::test_array_new_del(){
+	char* cc = new char[255];
+	delete[] cc;
 }
 
 void Kernel::showbss() {
