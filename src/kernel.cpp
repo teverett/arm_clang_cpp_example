@@ -101,7 +101,6 @@ extern "C" int main() {
 	print_uart0_str("Hello from Clang\n");
 	Kernel* kernel = new Kernel();
 	int ret = kernel->run();
-	// does nothing!
 	delete kernel;
 	return ret;
 }

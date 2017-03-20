@@ -7,6 +7,7 @@ ENTRY(_reset)
 SECTIONS
 {
  . = __qemu_load_address;
+ /* ARM startup and vector table */
 .startup : 
 	{ 
 	__startup_begin = .;
@@ -14,6 +15,7 @@ SECTIONS
   	__startup_end = .; 
 	}
 
+/* executable code */
 .text : 
 	{
 	__text_begin = .;
@@ -21,6 +23,7 @@ SECTIONS
   	__text_end = .; 
 	}
 
+/* uninitialized static variables */
 .bss : 
 	{ 
   	__bss_begin = .; 
@@ -28,6 +31,7 @@ SECTIONS
   	__bss_end = .;  
 	}
 
+/* initialized static variables.  read-write. */
 .data : 
 	{ 
 	__data_begin = .; 
@@ -35,6 +39,7 @@ SECTIONS
   	__data_end = .; 
 	}
 
+/* initialized static variables.  read-only. */
 .rodata :
 	{
 	__rodata_begin = .;
@@ -42,7 +47,7 @@ SECTIONS
   	__rodata_end = .; 	
 	}
 
-/* Include the list of initialization functions sorted. */
+/* array ctors */
 .init_array :
 	{
     PROVIDE(__init_array_begin = .);
@@ -52,7 +57,7 @@ SECTIONS
     PROVIDE(__init_array_end = .);
 	}
 
-/* Include the list of termination functions sorted. */
+/* array dtors */
 .fini_array :
 	{
     PROVIDE(__fini_array_begin = .);
@@ -61,6 +66,7 @@ SECTIONS
     PROVIDE(__fini_array_end = .);
 	}
 
+/* unwind stuff */
 .ARM.exidx : 
 	{
 	*(.ARM.exidx)
