@@ -153,7 +153,7 @@ fi
 # **** COMPILER-RT *****
 if [ $WANT_COMPILER_RT = "true" ]; then
     if [ ! -f $SOURCEDIR/$LLVM.src/projects/$CPP_RT_TARBALL ]; then
-            mkdir -p $SOURCEDIR/LLVM.src/projects
+            mkdir -p $SOURCEDIR/$LLVM.src/projects
             cd $SOURCEDIR/$LLVM.src/projects
             printf "downloading $LLVM_FTP/$LLD_VERSION/$CPP_RT_TARBALL\n";
             $CURL $LLVM_FTP/$LLD_VERSION/$CPP_RT_TARBALL > $CPP_RT_TARBALL
@@ -170,7 +170,7 @@ fi
 # **** LIBC++ *****
 if [ $WANT_CPP_RT = "true" ]; then
     if [ ! -f $SOURCEDIR/$LLVM.src/projects/$COMPILER_RT_TARBALL ]; then
-            mkdir -p $SOURCEDIR/LLVM.src/projects
+            mkdir -p $SOURCEDIR/$LLVM.src/projects
             cd $SOURCEDIR/$LLVM.src/projects
             printf "downloading $LLVM_FTP/$LLD_VERSION/$COMPILER_RT_TARBALL\n";
             $CURL $LLVM_FTP/$LLD_VERSION/$COMPILER_RT_TARBALL > $COMPILER_RT_TARBALL
@@ -188,7 +188,7 @@ fi
 # **** LLD *****
 if [ $WANT_LLD = "true" ]; then
     if [ ! -f $SOURCEDIR/$LLVM.src/tools/$LLD_TARBALL ]; then
-            mkdir -p $SOURCEDIR/LLVM.src/tools
+            mkdir -p $SOURCEDIR/$LLVM.src/tools
             cd $SOURCEDIR/$LLVM.src/tools
             printf "downloading $LLVM_FTP/$LLD_VERSION/$LLD_TARBALL\n";
             $CURL $LLVM_FTP/$LLD_VERSION/$LLD_TARBALL > $LLD_TARBALL
@@ -205,7 +205,7 @@ fi
 # **** LLDB *****
 if [ $WANT_LLDB = "true" ]; then
     if [ ! -f $SOURCEDIR/$LLVM.src/tools/$LLDB_TARBALL ]; then
-            mkdir -p $SOURCEDIR/LLVM.src/tools
+            mkdir -p $SOURCEDIR/$LLVM.src/tools
             cd $SOURCEDIR/$LLVM.src/tools
             printf "downloading $LLVM_FTP/$LLDB_VERSION/$LLDB_TARBALL\n";
             $CURL $LLVM_FTP/$LLDB_VERSION/$LLDB_TARBALL > $LLDB_TARBALL
