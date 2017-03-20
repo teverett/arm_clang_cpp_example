@@ -17,9 +17,19 @@ Kernel::~Kernel() {
 int Kernel::run() {
 	print_uart0_str("Kernel::run\n");
 	report_image();
+//	showbss();
 	test_heap_object();
-//	test_automatic_object();
+	test_automatic_object();
 	return 0;
+}
+
+void Kernel::showbss() {
+	for (unsigned int* i=&__bss_begin; i<&__bss_end;i++){
+		print_uart0_int((unsigned long) i);
+		print_uart0_str(" : ");
+		print_uart0_int((unsigned long) *i);
+		print_uart0_str("\n");
+	}
 }
 
 void Kernel::test_heap_object() {

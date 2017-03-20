@@ -6,6 +6,7 @@ private:
 	void test_heap_object();
 	void test_automatic_object();
 	void report_image();
+	void showbss();
 public:
 	Kernel();
 	~Kernel();

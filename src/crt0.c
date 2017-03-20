@@ -1,4 +1,5 @@
 #include "crti.h"
+#include "image.h"
 
 extern int main();
 
@@ -31,10 +32,19 @@ int atexit(void (*func)(void)) {
 	return 0;
 }
 
+void zerobss() {
+	for (unsigned int* i=&__bss_begin; i<&__bss_end;i++){
+		*i=0;
+	}
+}
 /**
  * c_entry is called from startup.s.  It calls _init to set up static data, then main, then shuts down static data
  */
 int c_entry() {
+	/*
+	* zero the bss
+	*/
+	zerobss();
 	/*
 	 * init exit functions
 	 */
@@ -54,4 +64,6 @@ int c_entry() {
 	run_atexit();
 	return 0;
 }
+
+
 
