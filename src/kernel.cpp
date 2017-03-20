@@ -9,7 +9,6 @@ extern "C" {
 
 Kernel::Kernel(){
 	print_uart0_str("Kernel::ctor\n");
-	report_image();
 }
 
 Kernel::~Kernel(){
@@ -18,6 +17,7 @@ Kernel::~Kernel(){
 
 int Kernel::run(){
 	print_uart0_str("Kernel::run\n");
+	report_image();
 	test_heap_object();
 //	test_automatic_object();
 	return 0;
@@ -41,12 +41,36 @@ void Kernel::test_automatic_object() {
 }
 
 void Kernel::report_image(){
-	print_uart0_str("__heap_top: ");
-	print_uart0_int(__heap_top);
+	print_uart0_str("__startup_begin: ");
+	print_uart0_int((unsigned long)&__startup_begin);
+	print_uart0_str("\n");
+
+	print_uart0_str("__text_begin: ");
+	print_uart0_int((unsigned long)&__text_begin);
+	print_uart0_str("\n");
+
+	print_uart0_str("__data_begin: ");
+	print_uart0_int((unsigned long)&__data_begin);
+	print_uart0_str("\n");
+
+	print_uart0_str("__bss_begin: ");
+	print_uart0_int((unsigned long)&__bss_begin);
+	print_uart0_str("\n");
+
+	print_uart0_str("__init_array_begin: ");
+	print_uart0_int((unsigned long)&__init_array_begin);
+	print_uart0_str("\n");
+
+	print_uart0_str("__fini_array_begin: ");
+	print_uart0_int((unsigned long)&__fini_array_begin);
 	print_uart0_str("\n");
 
 	print_uart0_str("__stack_top: ");
-	print_uart0_int(__stack_top);
+	print_uart0_int((unsigned long) &__stack_top);
+	print_uart0_str("\n");
+
+	print_uart0_str("__heap_top: ");
+	print_uart0_int((unsigned long) &__heap_top);
 	print_uart0_str("\n");
 }
 
