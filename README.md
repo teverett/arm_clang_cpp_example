@@ -29,26 +29,27 @@ qemu-system-arm  -M versatilepb -m 128M -nographic -kernel kernel.bin
 crt.c _init
 Obj1 int ctor with value: 12
 Hello from Clang
-new: 73792 size: 1
+new: 73840 size: 1
 Kernel::ctor
 Kernel::run
 __startup_begin: 65536
 __text_begin: 65552
-__data_begin: 68652
-__bss_begin: 68656
-__init_array_begin: 69688
-__fini_array_begin: 69692
-__stack_top: 73792
+__bss_begin: 68332
+__data_begin: 69364
+__rodata_begin: 69368
+__init_array_begin: 69732
+__fini_array_begin: 69736
+__stack_top: 73840
 __stack_size: 4096
-__heap_bottom: 73792
+__heap_bottom: 73840
 __heap_size: 65536
-new: 73892 size: 4
+new: 73940 size: 4
 Obj1 int ctor with value: 77
 77
 Obj1 dtor with value: 77
-delete: 73892
+delete: 73940
 Kernel::dtor
-delete: 73792
+delete: 73840
 Obj1 dtor with value: 12
 crt.c _fini
 QEMU: Terminated
