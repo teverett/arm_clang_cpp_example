@@ -8,7 +8,7 @@ typedef void (*atexit_function)(void);
  * array of exit functions
  */
 #define MAX_ATEXIT_FUNCTIONS 255
-static atexit_function* atexit_functions[255];
+static atexit_function atexit_functions[255];
 static int total_atexit_functions = 0;
 
 void init_atexit() {

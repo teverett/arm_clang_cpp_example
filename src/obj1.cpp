@@ -17,7 +17,7 @@ Obj1::Obj1() {
 }
 
 Obj1::~Obj1() {
-	print_uart0_str("Obj1 int dtor with value: ");
+	print_uart0_str("Obj1 dtor with value: ");
 	print_uart0_int(x);
 	print_uart0_str("\n");
 }
