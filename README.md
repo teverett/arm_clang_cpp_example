@@ -1,6 +1,13 @@
 # arm_clang_cpp_example
 
-An example of booting an ARM processor to C++, compiled with Clang.  
+An example of booting an ARM processor to C++, compiled with Clang.  This example shows:
+
+* Building a ARM cross-compile toolchain using GNU BinUtils and Clang
+* Booting the ARM chip, and running C++ code
+* Custom crt0 which initializes and deinitializes static data
+* C++ class instances allocated on the heap 
+* C++ global class instances
+* GNU LD link script
 
 ## Toolchain
 
