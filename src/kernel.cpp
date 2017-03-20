@@ -47,12 +47,16 @@ void Kernel::report_image() {
 	print_uart0_int((unsigned long) &__text_begin);
 	print_uart0_str("\n");
 
+	print_uart0_str("__bss_begin: ");
+	print_uart0_int((unsigned long) &__bss_begin);
+	print_uart0_str("\n");
+
 	print_uart0_str("__data_begin: ");
 	print_uart0_int((unsigned long) &__data_begin);
 	print_uart0_str("\n");
 
-	print_uart0_str("__bss_begin: ");
-	print_uart0_int((unsigned long) &__bss_begin);
+	print_uart0_str("__rodata_begin: ");
+	print_uart0_int((unsigned long) &__rodata_begin);
 	print_uart0_str("\n");
 
 	print_uart0_str("__init_array_begin: ");

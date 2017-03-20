@@ -21,6 +21,13 @@ SECTIONS
   	__text_end = .; 
 	}
 
+.bss : 
+	{ 
+  	__bss_begin = .; 
+	*(.bss COMMON)
+  	__bss_end = .;  
+	}
+
 .data : 
 	{ 
 	__data_begin = .; 
@@ -28,11 +35,11 @@ SECTIONS
   	__data_end = .; 
 	}
 
-.bss : 
-	{ 
-  	__bss_begin = .; 
-	*(.bss COMMON)
-  	__bss_end = .;  
+.rodata :
+	{
+	__rodata_begin = .;
+	*(.rodata) 
+  	__rodata_end = .; 	
 	}
 
 /* Include the list of initialization functions sorted. */
@@ -54,14 +61,37 @@ SECTIONS
     PROVIDE(__fini_array_end = .);
 	}
 
-/* stack */
-. = ALIGN(8);
-__stack_bottom = .;
-. = . + __stack_size;
-__stack_top = .;
+.ARM.exidx : 
+	{
+	*(.ARM.exidx)
+	}
 
-/* cheesy way to make a heap */
-__heap_bottom = .;
-. = . + __heap_size;
-__heap_top = .;
+.ARM.attributes :
+	{
+	*(.ARM.attributes)
+	}
+
+.comment : 
+	{
+	*(.comment )
+	}
+
+/* define a stack. Remember that on ARM stacks grow down */
+.stack :
+	{
+	/* stack */
+	. = ALIGN(8);
+	__stack_bottom = .;
+	. = . + __stack_size;
+	__stack_top = .;
+	}
+
+/* define a heap */
+.heap :
+	{	
+	. = ALIGN(8);
+	__heap_bottom = .;
+	. = . + __heap_size;
+	__heap_top = .;
+	}
 }

@@ -1,4 +1,3 @@
-
 extern "C" {
 #include "image.h"
 #include "serial.h"

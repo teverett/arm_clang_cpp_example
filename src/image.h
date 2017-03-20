@@ -13,6 +13,9 @@ extern unsigned int __bss_end;
 extern unsigned int __data_begin;
 extern unsigned int __data_end;
 
+extern unsigned int __rodata_begin;
+extern unsigned int __rodata_end;
+
 extern unsigned int __init_array_begin;
 extern unsigned int __init_array_end;
 
