@@ -30,6 +30,12 @@ sh build_toolchain.sh
 
 `make`
 
+## Running the example
+
+`make run`
+
+This requires that your system have `qemu-system-arm` installed
+
 ### Example Output
 
 <pre>
