@@ -37,6 +37,19 @@ void zerobss() {
 		*i=0;
 	}
 }
+
+void zeroheap() {
+	for (unsigned int* i=&__heap_bottom; i<&__heap_top;i++){
+		*i=0;
+	}
+}
+
+void zerostack() {
+	for (unsigned int* i=&__stack_bottom; i<&__stack_top;i++){
+		*i=0;
+	}
+}
+
 /**
  * c_entry is called from startup.s.  It calls _init to set up static data, then main, then shuts down static data
  */
@@ -45,6 +58,14 @@ int c_entry() {
 	* zero the bss
 	*/
 	zerobss();
+	/*
+	* zero the heap
+	*/
+	zeroheap();
+	/*
+	* zero the stack
+	*/
+	zerostack();
 	/*
 	 * init exit functions
 	 */
