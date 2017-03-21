@@ -11,12 +11,16 @@ SRC_ROOT=src
 ASM=asm
 OBJ_DIR=obj
 
+# float-abi (soft, softfp, hard)
+FLOAT_ABI=soft
+
 #args
 ASARGS=
-CCARGS=-target $(TARGET) -mfloat-abi=soft
-CCPARGS=-target $(TARGET) -S -fno-exceptions  -fno-exceptions -fno-use-cxa-atexit -ffreestanding -fno-builtin -nostdlib -nostdinc -nostdinc++ -mfloat-abi=soft -std=c++11
+CCARGS=-target $(TARGET) -mfloat-abi=$(FLOAT_ABI)
+CCPARGS=-target $(TARGET) -S -fno-exceptions -fno-use-cxa-atexit -ffreestanding -fno-builtin -nostdlib -nostdinc -nostdinc++ -mfloat-abi=$(FLOAT_ABI) -std=c++11 -fno-rtti
+LDARGS=--library-path=$(TOOLS_DIR)/lib 
 
-#tools
+# tools
 CC=$(TOOLS_DIR)/bin/clang
 CPP=$(TOOLS_DIR)/bin/clang++
 AS=$(TOOLS_DIR)/$(TARGET)/$(TARGET)/bin/as
@@ -84,7 +88,7 @@ kernel.bin: $(OBJ_DIR)/kernel.elf dump
 
 # elf kernel
 $(OBJ_DIR)/kernel.elf: dirs $(OBJS)
-	$(LD) $(OBJS) -o $(OBJ_DIR)/kernel.elf -T $(SRC_ROOT)/kernel.ld
+	$(LD) $(LDARGS) $(OBJS) -o $(OBJ_DIR)/kernel.elf -T $(SRC_ROOT)/kernel.ld
 
 dump: $(OBJ_DIR)/kernel.elf
 	$(OBJDUMP) -h $(OBJ_DIR)/kernel.elf > kernel.sections
