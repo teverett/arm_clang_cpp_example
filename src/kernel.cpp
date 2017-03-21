@@ -1,5 +1,6 @@
 #include "kernel.hpp"
 #include "obj1.hpp"
+#include "derivedclass1.hpp"
 
 extern "C" {
 #include "serial.h"
@@ -21,7 +22,14 @@ int Kernel::run() {
 	test_heap_object();
 	test_automatic_object();
 	test_array_new_del();
+	test_virtual();
 	return 0;
+}
+
+void Kernel::test_virtual(){
+	BaseClass1* baseClass1 = new DerivedClass1();
+	delete baseClass1;
+
 }
 
 void Kernel::test_array_new_del(){

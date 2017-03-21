@@ -8,6 +8,7 @@ private:
 	void report_image();
 	void showbss();
 	void test_array_new_del();
+	void test_virtual();
 public:
 	Kernel();
 	~Kernel();

@@ -17,8 +17,9 @@ FLOAT_ABI=soft
 #args
 ASARGS=
 CCARGS=-target $(TARGET) -mfloat-abi=$(FLOAT_ABI)
-CCPARGS=-target $(TARGET) -S -fno-exceptions -fno-use-cxa-atexit -ffreestanding -fno-builtin -nostdlib -nostdinc -nostdinc++ -mfloat-abi=$(FLOAT_ABI) -std=c++11 -fno-rtti
-LDARGS=--library-path=$(TOOLS_DIR)/lib 
+CCPARGS=-target $(TARGET) -S -fno-exceptions -fno-use-cxa-atexit -ffreestanding -fno-builtin -nostdlib -nostdinc -nostdinc++ -mfloat-abi=$(FLOAT_ABI) -std=c++11 -fno-rtti 
+#LDARGS=--library-path=$(TOOLS_DIR)/lib
+LDARGS=
 
 # tools
 CC=$(TOOLS_DIR)/bin/clang
@@ -78,7 +79,7 @@ $(OBJ_DIR)/%.o: %.cpp
 	mkdir -p $(@D)
 	$(CPP) $(CCPARGS) -S -c -o $(ASM)/$(notdir $<).asm $<
 	$(AS) $(ASARGS) -o $@ $(ASM)/$(notdir $<).asm 
-	$(OBJDUMP) -h $@ > $@.sections
+	$(OBJDUMP) -h -C $@ > $@.sections
 
 run: kernel.bin
 	$(QEMU) -M versatilepb -m 128M -nographic -kernel kernel.bin
@@ -91,7 +92,7 @@ $(OBJ_DIR)/kernel.elf: dirs $(OBJS)
 	$(LD) $(LDARGS) $(OBJS) -o $(OBJ_DIR)/kernel.elf -T $(SRC_ROOT)/kernel.ld
 
 dump: $(OBJ_DIR)/kernel.elf
-	$(OBJDUMP) -h $(OBJ_DIR)/kernel.elf > kernel.sections
+	$(OBJDUMP) -h -C $(OBJ_DIR)/kernel.elf > kernel.sections
 	$(OBJDUMP) -S -C $(OBJ_DIR)/kernel.elf > kernel.disassembly
 	$(OBJDUMP) -t -C $(OBJ_DIR)/kernel.elf > kernel.symbols
 

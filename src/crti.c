@@ -20,3 +20,9 @@ void _fini(void) {
 
 func_ptr __init_array_begin[0] __attribute__ ((used, section(".init_array"), aligned(sizeof(func_ptr)))) = { };
 func_ptr __fini_array_begin[0] __attribute__ ((used, section(".fini_array"), aligned(sizeof(func_ptr)))) = { };
+
+/*
+* http://stackoverflow.com/questions/920500/what-is-the-purpose-of-cxa-pure-virtual
+*/
+void __cxa_pure_virtual() {
+}
