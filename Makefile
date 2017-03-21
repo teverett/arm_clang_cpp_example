@@ -21,6 +21,10 @@ CCPARGS=-target $(TARGET) -S -fno-exceptions -fno-use-cxa-atexit -ffreestanding 
 #LDARGS=--library-path=$(TOOLS_DIR)/lib
 LDARGS=
 
+# extra args to CXX and CC
+EXTRA_CXXARGS= -Wall
+EXTRA_CCARGS= -Wall
+
 # tools
 CC=$(TOOLS_DIR)/bin/clang
 CPP=$(TOOLS_DIR)/bin/clang++
@@ -70,14 +74,14 @@ $(OBJ_DIR)/%.o: %.s
 # c files
 $(OBJ_DIR)/%.o: %.c
 	mkdir -p $(@D)
-	$(CC) $(CCARGS) -S -c -o $(ASM)/$(notdir $<).asm $<
+	$(CC) $(CCARGS) $(EXTRA_CCARGS) -S -c -o $(ASM)/$(notdir $<).asm $<
 	$(AS) $(ASARGS) -o $@ $(ASM)/$(notdir $<).asm 
 	$(OBJDUMP) -h $@ > $@.sections
 
 # cpp files
 $(OBJ_DIR)/%.o: %.cpp
 	mkdir -p $(@D)
-	$(CPP) $(CCPARGS) -S -c -o $(ASM)/$(notdir $<).asm $<
+	$(CPP) $(CCPARGS) $(EXTRA_CXXARGS) -S -c -o $(ASM)/$(notdir $<).asm $<
 	$(AS) $(ASARGS) -o $@ $(ASM)/$(notdir $<).asm 
 	$(OBJDUMP) -h -C $@ > $@.sections
 
