@@ -10,14 +10,14 @@ jobs:
     runs-on: ${{ matrix.os }}
     strategy:
       matrix:
-        os: [macos-latest]
+        os: [macos-latest, ubuntu-latest]
       fail-fast: false
 
     steps:
     - uses: actions/checkout@v2
 
     - name: make toolchain
-      run: cd toolchain; sh build_toolchain.sh
+      run:  sh build_toolchain.sh
 
     - name: build 
       run: make clean;make
