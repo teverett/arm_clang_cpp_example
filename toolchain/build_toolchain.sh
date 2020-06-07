@@ -67,7 +67,7 @@ CPP_RT_TARBALL=$CPP_RT.src.tar.xz
 # download sites
 GNU_FTP=ftp.gnu.org/gnu
 LLVM_FTP=http://releases.llvm.org
-CMAKE_FTP=https://github.com/Kitware/CMake/releases/download/v$CMAKE_VERSION/
+CMAKE_FTP=https://github.com/Kitware/CMake/releases/download/v$CMAKE_VERSION
 
 TOPDIR=$(pwd)
 printf "Topdir is $TOPDIR\n";
