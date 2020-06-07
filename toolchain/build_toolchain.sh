@@ -33,7 +33,7 @@ CURL="curl -s"
 # tool versions
 GMAKE_VERSION=4.3
 BINUTILS_VERSION=2.34
-CMAKE_VERSION=3.17.3
+CMAKE_VERSION=3.7.2
 LLVM_VERSION=4.0.0
 
 CLANG_VERSION=$LLVM_VERSION
@@ -67,7 +67,7 @@ CPP_RT_TARBALL=$CPP_RT.src.tar.xz
 # download sites
 GNU_FTP=ftp.gnu.org/gnu
 LLVM_FTP=http://releases.llvm.org
-CMAKE_FTP=https://github.com/Kitware/CMake/releases/download/v$CMAKE_VERSION
+CMAKE_FTP=https://cmake.org/files/v3.7
 
 TOPDIR=$(pwd)
 printf "Topdir is $TOPDIR\n";
