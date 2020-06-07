@@ -17,7 +17,7 @@ jobs:
     - uses: actions/checkout@v2
 
     - name: make toolchain
-      run: cd toolchain; sh build_toolschain.sh
+      run: cd toolchain; sh build_toolchain.sh
 
     - name: build 
       run: make clean;make
