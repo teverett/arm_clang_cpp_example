@@ -10,3 +10,4 @@
 /src/.project
 /src/.cproject
 /.DS_Store
+/toolchain/*

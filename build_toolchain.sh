@@ -4,7 +4,8 @@
 set -e
 
 if [ $# -eq 0 ]; then
-    TARGETS=( arm-none-eabi arm-none-elf mips-none-elf mipsel-none-elf mips64-none-elf mips64el-none-elf sparc-none-elf avr-none-elf)
+#    TARGETS=( arm-none-eabi arm-none-elf mips-none-elf mipsel-none-elf mips64-none-elf mips64el-none-elf sparc-none-elf avr-none-elf)
+    TARGETS=( arm-none-eabi )
 else
     TARGETS=$1
 fi
@@ -27,14 +28,26 @@ BUILDDIR=build
 SOURCEDIR=src
 BINDIR=binary
 
+# working dir
+WORKING_DIR=toolchain
+
+# remove old 
+rm -rf $WORKING_DIR/$BUILDDIR
+rm -rf $WORKING_DIR/$BINDIR
+
+
+# make new one
+mkdir $WORKING_DIR/$BUILDDIR
+mkdir $WORKING_DIR/$BINDIR
+
 # curl
 CURL="curl -s"
 
 # tool versions
-GMAKE_VERSION=4.3
+GMAKE_VERSION=3.82
 BINUTILS_VERSION=2.34
 CMAKE_VERSION=3.17.2
-LLVM_VERSION=4.0.0
+LLVM_VERSION=10.0.0
 
 CLANG_VERSION=$LLVM_VERSION
 LLD_VERSION=$LLVM_VERSION
@@ -69,7 +82,7 @@ GNU_FTP=ftp.gnu.org/gnu
 LLVM_FTP=http://releases.llvm.org
 CMAKE_FTP=https://cmake.org/files/v3.17
 
-TOPDIR=$(pwd)
+TOPDIR=$(pwd)/$WORKING_DIR
 printf "Topdir is $TOPDIR\n";
 
 LOGDIR=$TOPDIR/logs;
@@ -91,10 +104,11 @@ printf "llvm is $LLVM_BINARY\n";
 printf "clang is $CLANG_BINARY\n";
 printf "lld is $LLD_BINARY\n";
 
+cd $TOPDIR
 rm -rf $LOGDIR
 mkdir $LOGDIR
 mkdir -p $SOURCEDIR
-
+ 
 # **** GMAKE *****
 if [ ! -f $SOURCEDIR/$GMAKE_TARBALL ]; then
         cd $SOURCEDIR
@@ -184,7 +198,6 @@ else
     rm -f $SOURCEDIR/$LLVM.src/$LLD_TARBALL;
     rm -rf $SOURCEDIR/$LLVM.src/tools/$LLD.src;
 fi
-
 
 # **** LLD *****
 if [ $WANT_LLD = "true" ]; then
