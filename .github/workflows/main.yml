@@ -17,7 +17,7 @@ jobs:
     - uses: actions/checkout@v2
 
     - name: make toolchain
-      run:  sh build_toolchain.sh
+      run:  sh build_toolchain.sh arm-none-eabi
 
     - name: build 
       run: make clean;make
