@@ -5,7 +5,7 @@ set -e
 
 if [ $# -eq 0 ]; then
 #    TARGETS=( arm-none-eabi arm-none-elf mips-none-elf mipsel-none-elf mips64-none-elf mips64el-none-elf sparc-none-elf avr-none-elf)
-    TARGETS=(arm-none-eabi)
+    TARGETS=arm-none-eabi
 else
     TARGETS=$1
 fi
