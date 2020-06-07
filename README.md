@@ -18,7 +18,7 @@ This example uses the toolchain built by
 
 * [GNU Binutils](https://www.gnu.org/software/binutils/) - 2.34
 * [GNU Make](https://www.gnu.org/software/make/) - 4.3
-* [CMake](https://cmake.org/) - 3.7.2
+* [CMake](https://cmake.org/) - 3.17
 * [Clang](https://clang.llvm.org/) - 4.0.0
 
 To build the toolchain
@@ -27,6 +27,17 @@ To build the toolchain
 cd toolchain
 sh build_toolchain.sh
 </pre>
+
+### The toolchain supports these targets:
+
+* arm-none-eabi 
+* arm-none-elf 
+* mips-none-elf 
+* mipsel-none-elf 
+* mips64-none-elf 
+* mips64el-none-elf 
+* sparc-none-elf 
+* avr-none-elf
 
 ## Building the example
 
