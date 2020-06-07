@@ -41,6 +41,8 @@ sh build_toolchain.sh
 
 ## Building the example
 
+The provided MakeFile supports assembler, C, C++ and ObjectiveC source and targets the arm-none-elf platform
+
 <pre>
 make
 </pre>
