@@ -6,18 +6,26 @@ on:
   pull_request:
     branches: [ master ]
 jobs:
-  build:
-    runs-on: ${{ matrix.os }}
-    strategy:
-      matrix:
-        os: [macos-latest, ubuntu-latest]
-      fail-fast: false
+  build-macos:
+    runs-on: macos-latest
 
     steps:
     - uses: actions/checkout@v2
 
     - name: make toolchain
-      run:  sh build_toolchain.sh arm-none-eabi
+      run:  bash -e build_toolchain.sh arm-none-eabi
+
+    - name: build 
+      run: make clean;make
+
+  build-ubuntu:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - uses: actions/checkout@v2
+
+    - name: make toolchain
+      run:  bash3 -e build_toolchain.sh arm-none-eabi
 
     - name: build 
       run: make clean;make
