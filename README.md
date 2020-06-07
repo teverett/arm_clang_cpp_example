@@ -1,10 +1,12 @@
+![CI](https://github.com/teverett/arm_clang_cpp_example/workflows/CI/badge.svg)
+
 # arm_clang_cpp_example
 
-An example of booting an ARM processor to C++, compiled with Clang.  This example shows:
+An example of creating a custom ARM toolchain based on Clang and booting an ARM processor to C++.  This example shows:
 
 * Building a ARM cross-compile toolchain using GNU BinUtils and Clang
 * Booting the ARM chip, and running C++ code
-* Custom crt0 which initializes and deinitializes static data
+* Custom crt0 which initializes and de-initializes static data
 * C++ class instances allocated on the heap 
 * C++ global class instances
 * Zero-ing the .bss and heap
@@ -14,10 +16,10 @@ An example of booting an ARM processor to C++, compiled with Clang.  This exampl
 
 This example uses the toolchain built by 
 
-* GNU Binutils - 2.28
-* GNU Make - 3.82
-* CMake - 3.7.2
-* Clang - 4.0.0
+* [GNU Binutils](https://www.gnu.org/software/binutils/) - 2.34
+* [GNU Make](https://www.gnu.org/software/make/) - 4.3
+* [CMake](https://cmake.org/) - 3.7.2
+* [Clang](https://clang.llvm.org/) - 4.0.0
 
 To build the toolchain
 
@@ -28,11 +30,15 @@ sh build_toolchain.sh
 
 ## Building the example
 
-`make`
+<pre>
+make
+</pre>
 
 ## Running the example
 
-`make run`
+<pre>
+make run
+</pre>
 
 This requires that your system have `qemu-system-arm` installed
 
