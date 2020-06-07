@@ -11,6 +11,8 @@ set -e
     TARGETS=$1
 #fi
 
+exec bash -version
+
 printf "binutils targets are: ";
 for i in "${TARGETS[@]}" 
 do
