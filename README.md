@@ -18,7 +18,7 @@ This example uses the toolchain built by
 
 * [GNU Binutils](https://www.gnu.org/software/binutils/) - 2.34
 * [GNU Make](https://www.gnu.org/software/make/) - 4.3
-* [CMake](https://cmake.org/) - 3.17
+* [CMake](https://cmake.org/) - 3.7.2
 * [Clang](https://clang.llvm.org/) - 4.0.0
 
 To build the toolchain
