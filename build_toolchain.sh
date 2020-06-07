@@ -2,10 +2,10 @@
 
 # exit on error
 set -e
+# TARGETS=( arm-none-eabi arm-none-elf mips-none-elf mipsel-none-elf mips64-none-elf mips64el-none-elf sparc-none-elf avr-none-elf)
 
 if [ $# -eq 0 ]; then
-#    TARGETS=( arm-none-eabi arm-none-elf mips-none-elf mipsel-none-elf mips64-none-elf mips64el-none-elf sparc-none-elf avr-none-elf)
-    TARGETS=arm-none-eabi
+    TARGETS=(arm-none-eabi arm-none-elf)
 else
     TARGETS=$1
 fi
