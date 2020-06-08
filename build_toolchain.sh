@@ -114,7 +114,7 @@ if [ ! -f $SOURCEDIR/$GMAKE_TARBALL ]; then
         cd $SOURCEDIR
         printf "downloading $GNU_FTP/make/$GMAKE_TARBALL\n";
         eval $CURL $GNU_FTP/make/$GMAKE_TARBALL > $GMAKE_TARBALL
-        tar zxvf $GMAKE_TARBALL #>> $LOGDIR/$GMAKE.log 2>&1
+        tar -zxvf $GMAKE_TARBALL #>> $LOGDIR/$GMAKE.log 2>&1
         cd $TOPDIR
 else
         printf "Found $GMAKE source\n";
@@ -125,7 +125,7 @@ if [ ! -f $SOURCEDIR/$BINUTILS_TARBALL ]; then
         cd $SOURCEDIR 
         printf "downloading $GNU_FTP/binutils/$BINUTILS_TARBALL\n";
         eval $CURL $GNU_FTP/binutils/$BINUTILS_TARBALL > $BINUTILS_TARBALL
-        tar xvf $BINUTILS_TARBALL #>> $LOGDIR/$BINUTILS.log 2>&1
+        tar -xvf $BINUTILS_TARBALL #>> $LOGDIR/$BINUTILS.log 2>&1
         cd $TOPDIR
 else
         printf "Found binutils-$BINUTILS_VERSION source\n";
@@ -136,7 +136,7 @@ if [ ! -f $SOURCEDIR/$CMAKE_TARBALL ]; then
         cd $SOURCEDIR
         printf "downloading $CMAKE_FTP/$CMAKE_TARBALL\n";
         eval $CURL $CMAKE_FTP/$CMAKE_TARBALL > $CMAKE_TARBALL
-        tar xvf $CMAKE_TARBALL #>> $LOGDIR/$CMAKE.log 2>&1
+        tar -xvf $CMAKE_TARBALL #>> $LOGDIR/$CMAKE.log 2>&1
         cd $TOPDIR
 else
         printf "Found $CMAKE source\n";
@@ -147,7 +147,7 @@ if [ ! -f $SOURCEDIR/$LLVM_TARBALL ]; then
         cd $SOURCEDIR
         printf "downloading $LLVM_FTP/$LLVM_VERSION/$LLVM_TARBALL\n";
         eval $CURL $LLVM_FTP/$LLVM_VERSION/$LLVM_TARBALL > $LLVM_TARBALL
-        tar xvf $LLVM_TARBALL #>> $LOGDIR/$LLVM.log 2>&1
+        tar -xvf $LLVM_TARBALL #>> $LOGDIR/$LLVM.log 2>&1
         cd $TOPDIR
 else
         printf "Found $LLVM source\n";
