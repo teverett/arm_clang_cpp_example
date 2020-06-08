@@ -149,7 +149,7 @@ if [ ! -f $SOURCEDIR/$LLVM_TARBALL ]; then
         cd $SOURCEDIR
         printf "downloading $LLVM_FTP/$LLVM_VERSION/$LLVM_TARBALL\n";
         eval $CURL $LLVM_FTP/$LLVM_VERSION/$LLVM_TARBALL -O
-        tar -xvf $LLVM_TARBALL #>> $LOGDIR/$LLVM.log 2>&1
+        tar -Jxvf $LLVM_TARBALL #>> $LOGDIR/$LLVM.log 2>&1
         cd $TOPDIR
 else
         printf "Found $LLVM source\n";
@@ -161,7 +161,7 @@ if [ ! -f $SOURCEDIR/$LLVM.src/tools/$CLANG_TARBALL ]; then
         cd $SOURCEDIR/$LLVM.src/tools
         printf "downloading $LLVM_FTP/$CLANG_VERSION/$CLANG_TARBALL\n";
         eval $CURL $LLVM_FTP/$CLANG_VERSION/$CLANG_TARBALL -O
-        tar xvf $CLANG_TARBALL #>> $LOGDIR/$CLANG.log 2>&1
+        tar -Jxvf $CLANG_TARBALL #>> $LOGDIR/$CLANG.log 2>&1
         cd $TOPDIR
 else
         printf "Found $CLANG source\n";
@@ -174,7 +174,7 @@ if [ $WANT_COMPILER_RT = "true" ]; then
             cd $SOURCEDIR/$LLVM.src/projects
             printf "downloading $LLVM_FTP/$LLD_VERSION/$CPP_RT_TARBALL\n";
             eval $CURL $LLVM_FTP/$LLD_VERSION/$CPP_RT_TARBALL -O
-            tar xvf $CPP_RT_TARBALL #>> $LOGDIR/$CPP_RT.log 2>&1
+            tar -Jxvf $CPP_RT_TARBALL #>> $LOGDIR/$CPP_RT.log 2>&1
             cd $TOPDIR
     else
             printf "Found $CPP_RT source\n";
@@ -191,7 +191,7 @@ if [ $WANT_CPP_RT = "true" ]; then
             cd $SOURCEDIR/$LLVM.src/projects
             printf "downloading $LLVM_FTP/$LLD_VERSION/$COMPILER_RT_TARBALL\n";
             eval $CURL $LLVM_FTP/$LLD_VERSION/$COMPILER_RT_TARBALL > $COMPILER_RT_TARBALL
-            tar xvf $COMPILER_RT_TARBALL #>> $LOGDIR/$COMPILER_RT.log 2>&1
+            tar -Jxvf $COMPILER_RT_TARBALL #>> $LOGDIR/$COMPILER_RT.log 2>&1
             cd $TOPDIR
     else
             printf "Found $COMPILER_RT source\n";
@@ -208,7 +208,7 @@ if [ $WANT_LLD = "true" ]; then
             cd $SOURCEDIR/$LLVM.src/tools
             printf "downloading $LLVM_FTP/$LLD_VERSION/$LLD_TARBALL\n";
             eval $CURL $LLVM_FTP/$LLD_VERSION/$LLD_TARBALL > $LLD_TARBALL
-            tar xvf $LLD_TARBALL #>> $LOGDIR/$LLD.log 2>&1
+            tar -Jxvf $LLD_TARBALL #>> $LOGDIR/$LLD.log 2>&1
             cd $TOPDIR
     else
             printf "Found $LLD source\n";
@@ -225,7 +225,7 @@ if [ $WANT_LLDB = "true" ]; then
             cd $SOURCEDIR/$LLVM.src/tools
             printf "downloading $LLVM_FTP/$LLDB_VERSION/$LLDB_TARBALL\n";
             eval $CURL $LLVM_FTP/$LLDB_VERSION/$LLDB_TARBALL > $LLDB_TARBALL
-            tar xvf $LLDB_TARBALL #>> $LOGDIR/$LLDB.log 2>&1
+            tar -Jxvf $LLDB_TARBALL #>> $LOGDIR/$LLDB.log 2>&1
             cd $TOPDIR
     else
             printf "Found $LLDB source\n";
