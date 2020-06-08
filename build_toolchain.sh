@@ -1,15 +1,15 @@
-#!/bin/bash
+#!/usr/bin/env zsh
 
 # exit on error
 set -e
 
 # TARGETS=( arm-none-eabi arm-none-elf mips-none-elf mipsel-none-elf mips64-none-elf mips64el-none-elf sparc-none-elf avr-none-elf)
 
-#if [ $# -eq 0 ]; then
-#    TARGETS=("arm-none-eabi" "arm-none-elf")
-#else
+if [ $# -eq 0 ]; then
+    TARGETS=("arm-none-eabi" "arm-none-elf")
+else
     TARGETS=$1
-#fi
+fi
 
 printf "binutils targets are: ";
 for i in "${TARGETS[@]}" 
@@ -41,7 +41,7 @@ mkdir -p $WORKING_DIR/$BUILDDIR
 mkdir -p $WORKING_DIR/$BINDIR
 
 # curl
-CURL="curl -s"
+CURL="/usr/bin/curl -s"
 
 # tool versions
 GMAKE_VERSION=3.82
@@ -113,7 +113,7 @@ mkdir -p $SOURCEDIR
 if [ ! -f $SOURCEDIR/$GMAKE_TARBALL ]; then
         cd $SOURCEDIR
         printf "downloading $GNU_FTP/make/$GMAKE_TARBALL\n";
-        $CURL $GNU_FTP/make/$GMAKE_TARBALL > $GMAKE_TARBALL
+        eval $CURL $GNU_FTP/make/$GMAKE_TARBALL > $GMAKE_TARBALL
         tar zxvf $GMAKE_TARBALL >> $LOGDIR/$GMAKE.log 2>&1
         cd $TOPDIR
 else
@@ -124,7 +124,7 @@ fi
 if [ ! -f $SOURCEDIR/$BINUTILS_TARBALL ]; then
         cd $SOURCEDIR 
         printf "downloading $GNU_FTP/binutils/$BINUTILS_TARBALL\n";
-        $CURL $GNU_FTP/binutils/$BINUTILS_TARBALL > $BINUTILS_TARBALL
+        eval $CURL $GNU_FTP/binutils/$BINUTILS_TARBALL > $BINUTILS_TARBALL
         tar xvf $BINUTILS_TARBALL >> $LOGDIR/$BINUTILS.log 2>&1
         cd $TOPDIR
 else
@@ -135,7 +135,7 @@ fi
 if [ ! -f $SOURCEDIR/$CMAKE_TARBALL ]; then
         cd $SOURCEDIR
         printf "downloading $CMAKE_FTP/$CMAKE_TARBALL\n";
-        $CURL $CMAKE_FTP/$CMAKE_TARBALL > $CMAKE_TARBALL
+        eval $CURL $CMAKE_FTP/$CMAKE_TARBALL > $CMAKE_TARBALL
         tar xvf $CMAKE_TARBALL >> $LOGDIR/$CMAKE.log 2>&1
         cd $TOPDIR
 else
@@ -146,7 +146,7 @@ fi
 if [ ! -f $SOURCEDIR/$LLVM_TARBALL ]; then
         cd $SOURCEDIR
         printf "downloading $LLVM_FTP/$LLVM_VERSION/$LLVM_TARBALL\n";
-        $CURL $LLVM_FTP/$LLVM_VERSION/$LLVM_TARBALL > $LLVM_TARBALL
+        eval $CURL $LLVM_FTP/$LLVM_VERSION/$LLVM_TARBALL > $LLVM_TARBALL
         tar xvf $LLVM_TARBALL >> $LOGDIR/$LLVM.log 2>&1
         cd $TOPDIR
 else
@@ -158,7 +158,7 @@ if [ ! -f $SOURCEDIR/$LLVM.src/tools/$CLANG_TARBALL ]; then
         mkdir -p $SOURCEDIR/$LLVM.src/tools
         cd $SOURCEDIR/$LLVM.src/tools
         printf "downloading $LLVM_FTP/$CLANG_VERSION/$CLANG_TARBALL\n";
-        $CURL $LLVM_FTP/$CLANG_VERSION/$CLANG_TARBALL > $CLANG_TARBALL
+        eval $CURL $LLVM_FTP/$CLANG_VERSION/$CLANG_TARBALL > $CLANG_TARBALL
         tar xvf $CLANG_TARBALL >> $LOGDIR/$CLANG.log 2>&1
         cd $TOPDIR
 else
@@ -171,7 +171,7 @@ if [ $WANT_COMPILER_RT = "true" ]; then
             mkdir -p $SOURCEDIR/$LLVM.src/projects
             cd $SOURCEDIR/$LLVM.src/projects
             printf "downloading $LLVM_FTP/$LLD_VERSION/$CPP_RT_TARBALL\n";
-            $CURL $LLVM_FTP/$LLD_VERSION/$CPP_RT_TARBALL > $CPP_RT_TARBALL
+            eval $CURL $LLVM_FTP/$LLD_VERSION/$CPP_RT_TARBALL > $CPP_RT_TARBALL
             tar xvf $CPP_RT_TARBALL >> $LOGDIR/$CPP_RT.log 2>&1
             cd $TOPDIR
     else
@@ -188,7 +188,7 @@ if [ $WANT_CPP_RT = "true" ]; then
             mkdir -p $SOURCEDIR/$LLVM.src/projects
             cd $SOURCEDIR/$LLVM.src/projects
             printf "downloading $LLVM_FTP/$LLD_VERSION/$COMPILER_RT_TARBALL\n";
-            $CURL $LLVM_FTP/$LLD_VERSION/$COMPILER_RT_TARBALL > $COMPILER_RT_TARBALL
+            eval $CURL $LLVM_FTP/$LLD_VERSION/$COMPILER_RT_TARBALL > $COMPILER_RT_TARBALL
             tar xvf $COMPILER_RT_TARBALL >> $LOGDIR/$COMPILER_RT.log 2>&1
             cd $TOPDIR
     else
@@ -205,7 +205,7 @@ if [ $WANT_LLD = "true" ]; then
             mkdir -p $SOURCEDIR/$LLVM.src/tools
             cd $SOURCEDIR/$LLVM.src/tools
             printf "downloading $LLVM_FTP/$LLD_VERSION/$LLD_TARBALL\n";
-            $CURL $LLVM_FTP/$LLD_VERSION/$LLD_TARBALL > $LLD_TARBALL
+            eval $CURL $LLVM_FTP/$LLD_VERSION/$LLD_TARBALL > $LLD_TARBALL
             tar xvf $LLD_TARBALL >> $LOGDIR/$LLD.log 2>&1
             cd $TOPDIR
     else
@@ -222,7 +222,7 @@ if [ $WANT_LLDB = "true" ]; then
             mkdir -p $SOURCEDIR/$LLVM.src/tools
             cd $SOURCEDIR/$LLVM.src/tools
             printf "downloading $LLVM_FTP/$LLDB_VERSION/$LLDB_TARBALL\n";
-            $CURL $LLVM_FTP/$LLDB_VERSION/$LLDB_TARBALL > $LLDB_TARBALL
+            eval $CURL $LLVM_FTP/$LLDB_VERSION/$LLDB_TARBALL > $LLDB_TARBALL
             tar xvf $LLDB_TARBALL >> $LOGDIR/$LLDB.log 2>&1
             cd $TOPDIR
     else

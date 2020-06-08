@@ -13,7 +13,7 @@ jobs:
     - uses: actions/checkout@v2
 
     - name: make toolchain
-      run:  bash -e build_toolchain.sh arm-none-eabi
+      run:  zsh build_toolchain.sh
 
     - name: build 
       run: make clean;make
@@ -25,7 +25,7 @@ jobs:
     - uses: actions/checkout@v2
 
     - name: make toolchain
-      run:  bash3 -e build_toolchain.sh arm-none-eabi
+      run:  zsh build_toolchain.sh
 
     - name: build 
       run: make clean;make
