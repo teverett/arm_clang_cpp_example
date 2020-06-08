@@ -27,9 +27,6 @@ jobs:
     - name: install zsh
       run: sudo apt-get -y install zsh
 
-    - name: install xzutils
-      run: sudo apt-get -y install xz-utils
-
     - name: make toolchain
       run:  zsh build_toolchain.sh
 

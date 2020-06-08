@@ -41,14 +41,13 @@ mkdir -p $WORKING_DIR/$BUILDDIR
 mkdir -p $WORKING_DIR/$BINDIR
 
 # curl
-CURL="/usr/bin/curl -s"
+CURL="/usr/bin/curl -sL"
 
 # tool versions
 GMAKE_VERSION=3.82
 BINUTILS_VERSION=2.34
 CMAKE_VERSION=3.17.2
 LLVM_VERSION=10.0.0
-
 CLANG_VERSION=$LLVM_VERSION
 LLD_VERSION=$LLVM_VERSION
 LLDB_VERSION=$LLVM_VERSION
@@ -60,7 +59,7 @@ GMAKE=make-$GMAKE_VERSION
 BINUTILS=binutils-$BINUTILS_VERSION
 CMAKE=cmake-$CMAKE_VERSION
 LLVM=llvm-$LLVM_VERSION
-CLANG=cfe-$CLANG_VERSION
+CLANG=clang-$CLANG_VERSION
 LLD=lld-$LLD_VERSION
 LLDB=lldb-$LLDB_VERSION
 COMPILER_RT=compiler-rt-$COMPILER_RT_VERSION
@@ -79,9 +78,8 @@ CPP_RT_TARBALL=$CPP_RT.src.tar.xz
 
 # download sites
 GNU_FTP=ftp.gnu.org/gnu
-#https://github.com/llvm/llvm-project/releases/download/llvmorg-10.0.0/llvm-10.0.0.src.tar.xz
 
-LLVM_FTP=http://releases.llvm.org
+LLVM_FTP=https://github.com/llvm/llvm-project/releases/download
 CMAKE_FTP=https://cmake.org/files/v3.17
 
 TOPDIR=$(pwd)/$WORKING_DIR
@@ -147,8 +145,8 @@ fi
 # **** LLVM  *****
 if [ ! -f $SOURCEDIR/$LLVM_TARBALL ]; then
         cd $SOURCEDIR
-        printf "downloading $LLVM_FTP/$LLVM_VERSION/$LLVM_TARBALL\n";
-        eval $CURL $LLVM_FTP/$LLVM_VERSION/$LLVM_TARBALL -O
+        printf "downloading $LLVM_FTP/llvmorg-$LLVM_VERSION/$LLVM_TARBALL\n";
+        eval $CURL $LLVM_FTP/llvmorg-$LLVM_VERSION/$LLVM_TARBALL -O
         tar -Jxvf $LLVM_TARBALL #>> $LOGDIR/$LLVM.log 2>&1
         cd $TOPDIR
 else
@@ -159,8 +157,8 @@ fi
 if [ ! -f $SOURCEDIR/$LLVM.src/tools/$CLANG_TARBALL ]; then
         mkdir -p $SOURCEDIR/$LLVM.src/tools
         cd $SOURCEDIR/$LLVM.src/tools
-        printf "downloading $LLVM_FTP/$CLANG_VERSION/$CLANG_TARBALL\n";
-        eval $CURL $LLVM_FTP/$CLANG_VERSION/$CLANG_TARBALL -O
+        printf "downloading $LLVM_FTP/llvmorg-$CLANG_VERSION/$CLANG_TARBALL\n";
+        eval $CURL $LLVM_FTP/llvmorg-$CLANG_VERSION/$CLANG_TARBALL -O
         tar -Jxvf $CLANG_TARBALL #>> $LOGDIR/$CLANG.log 2>&1
         cd $TOPDIR
 else
@@ -172,8 +170,8 @@ if [ $WANT_COMPILER_RT = "true" ]; then
     if [ ! -f $SOURCEDIR/$LLVM.src/projects/$CPP_RT_TARBALL ]; then
             mkdir -p $SOURCEDIR/$LLVM.src/projects
             cd $SOURCEDIR/$LLVM.src/projects
-            printf "downloading $LLVM_FTP/$LLD_VERSION/$CPP_RT_TARBALL\n";
-            eval $CURL $LLVM_FTP/$LLD_VERSION/$CPP_RT_TARBALL -O
+            printf "downloading $LLVM_FTP/llvmorg-$LLD_VERSION/$CPP_RT_TARBALL\n";
+            eval $CURL $LLVM_FTP/llvmorg-$LLD_VERSION/$CPP_RT_TARBALL -O
             tar -Jxvf $CPP_RT_TARBALL #>> $LOGDIR/$CPP_RT.log 2>&1
             cd $TOPDIR
     else
@@ -187,10 +185,10 @@ fi
 # **** LIBC++ *****
 if [ $WANT_CPP_RT = "true" ]; then
     if [ ! -f $SOURCEDIR/$LLVM.src/projects/$COMPILER_RT_TARBALL ]; then
-            mkdir -p $SOURCEDIR/$LLVM.src/projects
+            mkdir -p $SOURCEDIR/llvmorg-$LLVM.src/projects
             cd $SOURCEDIR/$LLVM.src/projects
-            printf "downloading $LLVM_FTP/$LLD_VERSION/$COMPILER_RT_TARBALL\n";
-            eval $CURL $LLVM_FTP/$LLD_VERSION/$COMPILER_RT_TARBALL > $COMPILER_RT_TARBALL
+            printf "downloading $LLVM_FTP/llvmorg-$LLD_VERSION/$COMPILER_RT_TARBALL\n";
+            eval $CURL $LLVM_FTP/llvmorg-$LLD_VERSION/$COMPILER_RT_TARBALL > $COMPILER_RT_TARBALL
             tar -Jxvf $COMPILER_RT_TARBALL #>> $LOGDIR/$COMPILER_RT.log 2>&1
             cd $TOPDIR
     else
@@ -206,8 +204,8 @@ if [ $WANT_LLD = "true" ]; then
     if [ ! -f $SOURCEDIR/$LLVM.src/tools/$LLD_TARBALL ]; then
             mkdir -p $SOURCEDIR/$LLVM.src/tools
             cd $SOURCEDIR/$LLVM.src/tools
-            printf "downloading $LLVM_FTP/$LLD_VERSION/$LLD_TARBALL\n";
-            eval $CURL $LLVM_FTP/$LLD_VERSION/$LLD_TARBALL > $LLD_TARBALL
+            printf "downloading $LLVM_FTP/llvmorg-$LLD_VERSION/$LLD_TARBALL\n";
+            eval $CURL $LLVM_FTP/llvmorg-$LLD_VERSION/$LLD_TARBALL > $LLD_TARBALL
             tar -Jxvf $LLD_TARBALL #>> $LOGDIR/$LLD.log 2>&1
             cd $TOPDIR
     else
@@ -223,8 +221,8 @@ if [ $WANT_LLDB = "true" ]; then
     if [ ! -f $SOURCEDIR/$LLVM.src/tools/$LLDB_TARBALL ]; then
             mkdir -p $SOURCEDIR/$LLVM.src/tools
             cd $SOURCEDIR/$LLVM.src/tools
-            printf "downloading $LLVM_FTP/$LLDB_VERSION/$LLDB_TARBALL\n";
-            eval $CURL $LLVM_FTP/$LLDB_VERSION/$LLDB_TARBALL > $LLDB_TARBALL
+            printf "downloading $LLVM_FTP/llvmorg-$LLDB_VERSION/$LLDB_TARBALL\n";
+            eval $CURL $LLVM_FTP/llvmorg-$LLDB_VERSION/$LLDB_TARBALL > $LLDB_TARBALL
             tar -Jxvf $LLDB_TARBALL #>> $LOGDIR/$LLDB.log 2>&1
             cd $TOPDIR
     else
