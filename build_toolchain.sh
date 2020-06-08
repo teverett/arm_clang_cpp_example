@@ -6,7 +6,7 @@ set -e
 # TARGETS=( arm-none-eabi arm-none-elf mips-none-elf mipsel-none-elf mips64-none-elf mips64el-none-elf sparc-none-elf avr-none-elf)
 
 if [ $# -eq 0 ]; then
-    TARGETS=("arm-none-eabi" "arm-none-elf")
+    TARGETS=("arm-none-eabi" "arm-none-elf" "x86_64")
 else
     TARGETS=$1
 fi
@@ -44,7 +44,7 @@ mkdir -p $WORKING_DIR/$BINDIR
 CURL="/usr/bin/curl -sL"
 
 # tool versions
-GMAKE_VERSION=4.3
+GMAKE_VERSION=3.82
 BINUTILS_VERSION=2.34
 CMAKE_VERSION=3.17.2
 LLVM_VERSION=10.0.0
