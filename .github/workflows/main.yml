@@ -24,6 +24,9 @@ jobs:
     steps:
     - uses: actions/checkout@v2
 
+    - name: instsll zsh
+      run: sudo apt-get update && sudo apt-get -y install zsh
+
     - name: make toolchain
       run:  zsh build_toolchain.sh
 
