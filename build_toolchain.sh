@@ -114,7 +114,7 @@ if [ ! -f $SOURCEDIR/$GMAKE_TARBALL ]; then
         cd $SOURCEDIR
         printf "downloading $GNU_FTP/make/$GMAKE_TARBALL\n";
         eval $CURL $GNU_FTP/make/$GMAKE_TARBALL > $GMAKE_TARBALL
-        tar zxvf $GMAKE_TARBALL >> $LOGDIR/$GMAKE.log 2>&1
+        tar zxvf $GMAKE_TARBALL #>> $LOGDIR/$GMAKE.log 2>&1
         cd $TOPDIR
 else
         printf "Found $GMAKE source\n";
@@ -125,7 +125,7 @@ if [ ! -f $SOURCEDIR/$BINUTILS_TARBALL ]; then
         cd $SOURCEDIR 
         printf "downloading $GNU_FTP/binutils/$BINUTILS_TARBALL\n";
         eval $CURL $GNU_FTP/binutils/$BINUTILS_TARBALL > $BINUTILS_TARBALL
-        tar xvf $BINUTILS_TARBALL >> $LOGDIR/$BINUTILS.log 2>&1
+        tar xvf $BINUTILS_TARBALL #>> $LOGDIR/$BINUTILS.log 2>&1
         cd $TOPDIR
 else
         printf "Found binutils-$BINUTILS_VERSION source\n";
@@ -136,7 +136,7 @@ if [ ! -f $SOURCEDIR/$CMAKE_TARBALL ]; then
         cd $SOURCEDIR
         printf "downloading $CMAKE_FTP/$CMAKE_TARBALL\n";
         eval $CURL $CMAKE_FTP/$CMAKE_TARBALL > $CMAKE_TARBALL
-        tar xvf $CMAKE_TARBALL >> $LOGDIR/$CMAKE.log 2>&1
+        tar xvf $CMAKE_TARBALL #>> $LOGDIR/$CMAKE.log 2>&1
         cd $TOPDIR
 else
         printf "Found $CMAKE source\n";
@@ -147,7 +147,7 @@ if [ ! -f $SOURCEDIR/$LLVM_TARBALL ]; then
         cd $SOURCEDIR
         printf "downloading $LLVM_FTP/$LLVM_VERSION/$LLVM_TARBALL\n";
         eval $CURL $LLVM_FTP/$LLVM_VERSION/$LLVM_TARBALL > $LLVM_TARBALL
-        tar xvf $LLVM_TARBALL >> $LOGDIR/$LLVM.log 2>&1
+        tar xvf $LLVM_TARBALL #>> $LOGDIR/$LLVM.log 2>&1
         cd $TOPDIR
 else
         printf "Found $LLVM source\n";
@@ -159,7 +159,7 @@ if [ ! -f $SOURCEDIR/$LLVM.src/tools/$CLANG_TARBALL ]; then
         cd $SOURCEDIR/$LLVM.src/tools
         printf "downloading $LLVM_FTP/$CLANG_VERSION/$CLANG_TARBALL\n";
         eval $CURL $LLVM_FTP/$CLANG_VERSION/$CLANG_TARBALL > $CLANG_TARBALL
-        tar xvf $CLANG_TARBALL >> $LOGDIR/$CLANG.log 2>&1
+        tar xvf $CLANG_TARBALL #>> $LOGDIR/$CLANG.log 2>&1
         cd $TOPDIR
 else
         printf "Found $CLANG source\n";
@@ -172,7 +172,7 @@ if [ $WANT_COMPILER_RT = "true" ]; then
             cd $SOURCEDIR/$LLVM.src/projects
             printf "downloading $LLVM_FTP/$LLD_VERSION/$CPP_RT_TARBALL\n";
             eval $CURL $LLVM_FTP/$LLD_VERSION/$CPP_RT_TARBALL > $CPP_RT_TARBALL
-            tar xvf $CPP_RT_TARBALL >> $LOGDIR/$CPP_RT.log 2>&1
+            tar xvf $CPP_RT_TARBALL #>> $LOGDIR/$CPP_RT.log 2>&1
             cd $TOPDIR
     else
             printf "Found $CPP_RT source\n";
@@ -189,7 +189,7 @@ if [ $WANT_CPP_RT = "true" ]; then
             cd $SOURCEDIR/$LLVM.src/projects
             printf "downloading $LLVM_FTP/$LLD_VERSION/$COMPILER_RT_TARBALL\n";
             eval $CURL $LLVM_FTP/$LLD_VERSION/$COMPILER_RT_TARBALL > $COMPILER_RT_TARBALL
-            tar xvf $COMPILER_RT_TARBALL >> $LOGDIR/$COMPILER_RT.log 2>&1
+            tar xvf $COMPILER_RT_TARBALL #>> $LOGDIR/$COMPILER_RT.log 2>&1
             cd $TOPDIR
     else
             printf "Found $COMPILER_RT source\n";
@@ -206,7 +206,7 @@ if [ $WANT_LLD = "true" ]; then
             cd $SOURCEDIR/$LLVM.src/tools
             printf "downloading $LLVM_FTP/$LLD_VERSION/$LLD_TARBALL\n";
             eval $CURL $LLVM_FTP/$LLD_VERSION/$LLD_TARBALL > $LLD_TARBALL
-            tar xvf $LLD_TARBALL >> $LOGDIR/$LLD.log 2>&1
+            tar xvf $LLD_TARBALL #>> $LOGDIR/$LLD.log 2>&1
             cd $TOPDIR
     else
             printf "Found $LLD source\n";
@@ -223,7 +223,7 @@ if [ $WANT_LLDB = "true" ]; then
             cd $SOURCEDIR/$LLVM.src/tools
             printf "downloading $LLVM_FTP/$LLDB_VERSION/$LLDB_TARBALL\n";
             eval $CURL $LLVM_FTP/$LLDB_VERSION/$LLDB_TARBALL > $LLDB_TARBALL
-            tar xvf $LLDB_TARBALL >> $LOGDIR/$LLDB.log 2>&1
+            tar xvf $LLDB_TARBALL #>> $LOGDIR/$LLDB.log 2>&1
             cd $TOPDIR
     else
             printf "Found $LLDB source\n";
@@ -244,11 +244,11 @@ mkdir -p $BUILDDIR/$CLANG
 if [ ! -f $GMAKE_BINARY ]; then
         printf "Configuring $GMAKE\n";
         cd $BUILDDIR/$GMAKE
-        $TOPDIR/$SOURCEDIR/$GMAKE/configure --prefix=$TOPDIR/$BINDIR >> $LOGDIR/$GMAKE.log 2>&1
+        $TOPDIR/$SOURCEDIR/$GMAKE/configure --prefix=$TOPDIR/$BINDIR #>> $LOGDIR/$GMAKE.log 2>&1
         printf "Building $GMAKE\n";
-        make >> $LOGDIR/$GMAKE.log 2>&1
+        make #>> $LOGDIR/$GMAKE.log 2>&1
         printf "Installing $GMAKE\n";
-        make install >> $LOGDIR/$GMAKE.log 2>&1
+        make install #>> $LOGDIR/$GMAKE.log 2>&1
         cd $TOPDIR
 else
         printf "Found $GMAKE binary\n"        
@@ -264,11 +264,11 @@ do
             printf "Configuring $BINUTILS ($TARGET)\n";
             mkdir -p $BUILDDIR/$BINUTILS/$TARGET
             cd $BUILDDIR/$BINUTILS/$TARGET
-            $TOPDIR/$SOURCEDIR/$BINUTILS/configure --target=$TARGET --prefix=$PREFIX --disable-nls >> $LOGDIR/$BINUTILS.log 2>&1
+            $TOPDIR/$SOURCEDIR/$BINUTILS/configure --target=$TARGET --prefix=$PREFIX --disable-nls ##>> $LOGDIR/$BINUTILS.log 2>&1
             printf "Building $BINUTILS ($TARGET)\n";
-            $GMAKE_BINARY >> $LOGDIR/$BINUTILS.log 2>&1
+            $GMAKE_BINARY ##>> $LOGDIR/$BINUTILS.log 2>&1
             printf "Installing $BINUTILS ($TARGET)\n";
-            $GMAKE_BINARY install >> $LOGDIR/$BINUTILS.log 2>&1
+            $GMAKE_BINARY install ##>> $LOGDIR/$BINUTILS.log 2>&1
             cd $TOPDIR
     else
             printf "Found as binary ($TARGET)\n"       
@@ -279,11 +279,11 @@ done
 if [ ! -f $CMAKE_BINARY ]; then
         printf "Configuring $CMAKE\n";
         cd $BUILDDIR/$CMAKE
-        $TOPDIR/$SOURCEDIR/$CMAKE/configure >> $LOGDIR/$CMAKE.log 2>&1
+        $TOPDIR/$SOURCEDIR/$CMAKE/configure ##>> $LOGDIR/$CMAKE.log 2>&1
         printf "Building $CMAKE\n";
-        $GMAKE_BINARY >> $LOGDIR/$CMAKE.log 2>&1
+        $GMAKE_BINARY #>> $LOGDIR/$CMAKE.log 2>&1
         printf "Installing $CMAKE\n";
-        $GMAKE_BINARY DESTDIR=$TOPDIR/$BINDIR install >> $LOGDIR/$CMAKE.log 2>&1
+        $GMAKE_BINARY DESTDIR=$TOPDIR/$BINDIR install #>> $LOGDIR/$CMAKE.log 2>&1
         cd $TOPDIR;
 else
         printf "Found $CMAKE binary\n";       
@@ -293,11 +293,11 @@ fi
 if [ ! -f $CLANG_BINARY ]; then
         cd $BUILDDIR/$CLANG;
         printf "Building $CLANG Makefile\n";
-        $CMAKE_BINARY -DCMAKE_INSTALL_PREFIX=$TOPDIR/$BINDIR -DCMAKE_BUILD_TYPE=Release $TOPDIR/$SOURCEDIR/$LLVM.src >> $LOGDIR/$CLANG.log 2>&1
+        $CMAKE_BINARY -DCMAKE_INSTALL_PREFIX=$TOPDIR/$BINDIR -DCMAKE_BUILD_TYPE=Release $TOPDIR/$SOURCEDIR/$LLVM.src #>> $LOGDIR/$CLANG.log 2>&1
         printf "Building $CLANG\n"; 
-        $GMAKE_BINARY >> $LOGDIR/$CLANG.log 2>&1
+        $GMAKE_BINARY #>> $LOGDIR/$CLANG.log 2>&1
         printf "Installing $CLANG\n";
-        $GMAKE_BINARY install >> $LOGDIR/$CLANG.log 2>&1
+        $GMAKE_BINARY install #>> $LOGDIR/$CLANG.log 2>&1
         cd $TOPDIR;
 else
         printf "Found $CLANG binary\n";       
