@@ -79,6 +79,8 @@ CPP_RT_TARBALL=$CPP_RT.src.tar.xz
 
 # download sites
 GNU_FTP=ftp.gnu.org/gnu
+#https://github.com/llvm/llvm-project/releases/download/llvmorg-10.0.0/llvm-10.0.0.src.tar.xz
+
 LLVM_FTP=http://releases.llvm.org
 CMAKE_FTP=https://cmake.org/files/v3.17
 
@@ -113,7 +115,7 @@ mkdir -p $SOURCEDIR
 if [ ! -f $SOURCEDIR/$GMAKE_TARBALL ]; then
         cd $SOURCEDIR
         printf "downloading $GNU_FTP/make/$GMAKE_TARBALL\n";
-        eval $CURL $GNU_FTP/make/$GMAKE_TARBALL > $GMAKE_TARBALL
+        eval $CURL $GNU_FTP/make/$GMAKE_TARBALL -O
         tar -zxvf $GMAKE_TARBALL #>> $LOGDIR/$GMAKE.log 2>&1
         cd $TOPDIR
 else
@@ -124,7 +126,7 @@ fi
 if [ ! -f $SOURCEDIR/$BINUTILS_TARBALL ]; then
         cd $SOURCEDIR 
         printf "downloading $GNU_FTP/binutils/$BINUTILS_TARBALL\n";
-        eval $CURL $GNU_FTP/binutils/$BINUTILS_TARBALL > $BINUTILS_TARBALL
+        eval $CURL $GNU_FTP/binutils/$BINUTILS_TARBALL -O
         tar -xvf $BINUTILS_TARBALL #>> $LOGDIR/$BINUTILS.log 2>&1
         cd $TOPDIR
 else
@@ -135,7 +137,7 @@ fi
 if [ ! -f $SOURCEDIR/$CMAKE_TARBALL ]; then
         cd $SOURCEDIR
         printf "downloading $CMAKE_FTP/$CMAKE_TARBALL\n";
-        eval $CURL $CMAKE_FTP/$CMAKE_TARBALL > $CMAKE_TARBALL
+        eval $CURL $CMAKE_FTP/$CMAKE_TARBALL -O
         tar -xvf $CMAKE_TARBALL #>> $LOGDIR/$CMAKE.log 2>&1
         cd $TOPDIR
 else
@@ -146,7 +148,7 @@ fi
 if [ ! -f $SOURCEDIR/$LLVM_TARBALL ]; then
         cd $SOURCEDIR
         printf "downloading $LLVM_FTP/$LLVM_VERSION/$LLVM_TARBALL\n";
-        eval $CURL $LLVM_FTP/$LLVM_VERSION/$LLVM_TARBALL > $LLVM_TARBALL
+        eval $CURL $LLVM_FTP/$LLVM_VERSION/$LLVM_TARBALL -O
         tar -xvf $LLVM_TARBALL #>> $LOGDIR/$LLVM.log 2>&1
         cd $TOPDIR
 else
@@ -158,7 +160,7 @@ if [ ! -f $SOURCEDIR/$LLVM.src/tools/$CLANG_TARBALL ]; then
         mkdir -p $SOURCEDIR/$LLVM.src/tools
         cd $SOURCEDIR/$LLVM.src/tools
         printf "downloading $LLVM_FTP/$CLANG_VERSION/$CLANG_TARBALL\n";
-        eval $CURL $LLVM_FTP/$CLANG_VERSION/$CLANG_TARBALL > $CLANG_TARBALL
+        eval $CURL $LLVM_FTP/$CLANG_VERSION/$CLANG_TARBALL -O
         tar xvf $CLANG_TARBALL #>> $LOGDIR/$CLANG.log 2>&1
         cd $TOPDIR
 else
@@ -171,7 +173,7 @@ if [ $WANT_COMPILER_RT = "true" ]; then
             mkdir -p $SOURCEDIR/$LLVM.src/projects
             cd $SOURCEDIR/$LLVM.src/projects
             printf "downloading $LLVM_FTP/$LLD_VERSION/$CPP_RT_TARBALL\n";
-            eval $CURL $LLVM_FTP/$LLD_VERSION/$CPP_RT_TARBALL > $CPP_RT_TARBALL
+            eval $CURL $LLVM_FTP/$LLD_VERSION/$CPP_RT_TARBALL -O
             tar xvf $CPP_RT_TARBALL #>> $LOGDIR/$CPP_RT.log 2>&1
             cd $TOPDIR
     else
